@@ -64,7 +64,7 @@ export class Volume extends THREE.Object3D {
 	}
 
 	update () {
-		
+
 	};
 
 	raycast (raycaster, intersects) {
@@ -87,7 +87,7 @@ export class Volume extends THREE.Object3D {
 				object: this
 			});
 		}
-		
+
 	}
 
 	get modifieable () {
@@ -323,7 +323,7 @@ export class SphereVolume extends Volume{
 			});
 		}
 	}
-	
+
 	// see https://en.wikipedia.org/wiki/Ellipsoid#Volume
 	getVolume(){
 		return (4 / 3) * Math.PI * this.scale.x * this.scale.y * this.scale.z;

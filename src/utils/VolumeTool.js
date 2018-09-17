@@ -26,7 +26,7 @@ export class VolumeTool extends EventDispatcher{
 			this.scene.remove(e.volume);
 		};
 
-		this.onAdd = e => {
+		this.onAdd = e => {			
 			this.scene.add(e.volume);
 		};
 
@@ -48,6 +48,7 @@ export class VolumeTool extends EventDispatcher{
 	}
 
 	onSceneChange(e){
+		console.log('scene change');
 		if(e.oldScene){
 			e.oldScene.removeEventListeners('volume_added', this.onAdd);
 			e.oldScene.removeEventListeners('volume_removed', this.onRemove);
@@ -64,7 +65,7 @@ export class VolumeTool extends EventDispatcher{
 		}else{
 			volume = new BoxVolume();
 		}
-		
+
 		volume.clip = args.clip || false;
 		volume.name = args.name || 'Volume';
 
@@ -82,17 +83,16 @@ export class VolumeTool extends EventDispatcher{
 
 		let drag = e => {
 			let camera = this.viewer.scene.getActiveCamera();
-			
+
 			let I = Utils.getMousePointCloudIntersection(
-				e.drag.end, 
-				this.viewer.scene.getActiveCamera(), 
-				this.viewer, 
-				this.viewer.scene.pointclouds, 
-				{pickClipped: false});
+				e.drag.end,
+				this.viewer.scene.getActiveCamera(),
+				this.viewer,
+				this.viewer.scene.pointclouds,
+				{pickClipped: false})
 
 			if (I) {
-				volume.position.copy(I.location);
-
+				volume.position.copy(I.location);  //exact middle of volume cube
 				let wp = volume.getWorldPosition(new THREE.Vector3()).applyMatrix4(camera.matrixWorldInverse);
 				// let pp = new THREE.Vector4(wp.x, wp.y, wp.z).applyMatrix4(camera.projectionMatrix);
 				let w = Math.abs((wp.z / 5));
@@ -113,8 +113,19 @@ export class VolumeTool extends EventDispatcher{
 			this.viewer.removeEventListener('cancel_insertions', cancel.callback);
 		};
 
+		let select = (e) => {
+			this.viewer.onVolumeSelected(e);
+		}
+
+		let deselect = () => {
+			this.viewer.onVolumeDeselected();
+		}
+
 		volume.addEventListener('drag', drag);
 		volume.addEventListener('drop', drop);
+		volume.addEventListener('select', select);
+		volume.addEventListener('deselect', deselect);
+
 		this.viewer.addEventListener('cancel_insertions', cancel.callback);
 
 		this.viewer.inputHandler.startDragging(volume);
@@ -126,7 +137,7 @@ export class VolumeTool extends EventDispatcher{
 		if (!this.viewer.scene) {
 			return;
 		}
-		
+
 		let camera = this.viewer.scene.getActiveCamera();
 		let clientWidth = this.viewer.renderer.getSize().width;
 		let clientHeight = this.viewer.renderer.getSize().height;
@@ -134,7 +145,7 @@ export class VolumeTool extends EventDispatcher{
 		let volumes = this.viewer.scene.volumes;
 		for (let volume of volumes) {
 			let label = volume.label;
-			
+
 			{
 
 				let distance = label.position.distanceTo(camera.position);

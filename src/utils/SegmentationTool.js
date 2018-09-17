@@ -1,142 +1,121 @@
 
-import {Measure} from "./Measure.js";
+import {Segment} from "./Segment.js";
 import {Utils} from "../utils.js";
 import {CameraMode} from "../defines.js";
 import {EventDispatcher} from "../EventDispatcher.js";
-import {DBConnection} from "../../database/connection.js";
 
-export class MeasuringTool extends EventDispatcher{
+export class SegmentationTool extends EventDispatcher{
 	constructor (viewer) {
 		super();
 
 		this.viewer = viewer;
 		this.renderer = viewer.renderer;
 
-		this.addEventListener('start_inserting_measurement', e => {
+		this.addEventListener('start_inserting_segmentation', e => {
 			this.viewer.dispatchEvent({
 				type: 'cancel_insertions'
 			});
 		});
 
 		this.scene = new THREE.Scene();
-		this.scene.name = 'scene_measurement';
+		this.scene.name = 'scene_segmentation';
 		this.light = new THREE.PointLight(0xffffff, 1.0);
 		this.scene.add(this.light);
 
 		this.viewer.inputHandler.registerInteractiveScene(this.scene);
 
-		this.onRemove = (e) => { this.scene.remove(e.measurement);};
-		this.onAdd = e => {this.scene.add(e.measurement);};
+		this.onRemove = (e) => { this.scene.remove(e.segments);};
+		this.onAdd = e => {this.scene.add(e.segments);};
 
-		for(let measurement of viewer.scene.measurements){
-			this.onAdd({measurement: measurement});
+		for(let segment of viewer.scene.segments){
+			this.onAdd({segment: segment});
 		}
 
 		viewer.addEventListener("update", this.update.bind(this));
 		viewer.addEventListener("render.pass.perspective_overlay", this.render.bind(this));
 		viewer.addEventListener("scene_changed", this.onSceneChange.bind(this));
 
-		viewer.scene.addEventListener('measurement_added', this.onAdd);
-		viewer.scene.addEventListener('measurement_removed', this.onRemove);
+		viewer.scene.addEventListener('segment_added', this.onAdd);
+		viewer.scene.addEventListener('segment_removed', this.onRemove);
 	}
 
 	onSceneChange(e){
 		if(e.oldScene){
-			e.oldScene.removeEventListener('measurement_added', this.onAdd);
-			e.oldScene.removeEventListener('measurement_removed', this.onRemove);
+			e.oldScene.removeEventListener('segment_added', this.onAdd);
+			e.oldScene.removeEventListener('segment_removed', this.onRemove);
 		}
 
-		e.scene.addEventListener('measurement_added', this.onAdd);
-		e.scene.addEventListener('measurement_removed', this.onRemove);
+		e.scene.addEventListener('segment_added', this.onAdd);
+		e.scene.addEventListener('segment_removed', this.onRemove);
 	}
 
 	startInsertion (args = {}) {
 		let domElement = this.viewer.renderer.domElement;
 
-		let measure = new Measure();
+		let segment = new Segment();
 
 		this.dispatchEvent({
-			type: 'start_inserting_measurement',
-			measure: measure
+			type: 'start_inserting_segment',
+			segment: segment
 		});
 
-		let promptSaveRequest = (position) => {
-			var data = prompt("Do you want to save this point? Optionally, you can add more information here:");
-			if (data != null) {
-				DBConnection.savePoint(position, data);
-			}
-		}
+		segment.showDistances = (args.showDistances === null) ? true : args.showDistances;
+		segment.showArea = args.showArea || false;
+		segment.showAngles = args.showAngles || false;
+		segment.showCoordinates = args.showCoordinates || false;
+		segment.showHeight = args.showHeight || false;
+		segment.closed = args.closed || false;
+		segment.maxMarkers = args.maxMarkers || Infinity;
+		segment.name = args.name || 'Segment';
 
-		measure.showDistances = (args.showDistances === null) ? true : args.showDistances;
-		measure.showArea = args.showArea || false;
-		measure.showAngles = args.showAngles || false;
-		measure.showCoordinates = args.showCoordinates || false;
-		measure.showHeight = args.showHeight || false;
-		measure.closed = args.closed || false;
-		measure.maxMarkers = args.maxMarkers || Infinity;
-		measure.name = args.name || 'Measurement';
-
-		this.scene.add(measure);
+		this.scene.add(segment);
 
 		let cancel = {
-			removeLastMarker: measure.maxMarkers > 3,
+			removeLastMarker: segment.maxMarkers > 3,
 			callback: null
 		};
 
 		let insertionCallback = (e) => {
 			if (e.button === THREE.MOUSE.LEFT) {
-				measure.addMarker(measure.points[measure.points.length - 1].position.clone());
+				segment.addMarker(segment.points[segment.points.length - 1].position.clone());
 
-				if (measure.points.length >= measure.maxMarkers) {
+				if (segment.points.length >= segment.maxMarkers) {
 					cancel.callback();
 				}
 
 				this.viewer.inputHandler.startDragging(
-					measure.spheres[measure.spheres.length - 1]);
+					segment.spheres[segment.spheres.length - 1]);
 			} else if (e.button === THREE.MOUSE.RIGHT) {
-				cancel.callback();
-			}
-		};
-
-		let pointDropCallback = (e) => {
-			if (e.button === THREE.MOUSE.LEFT) {
-				var position = measure.spheres[measure.spheres.length - 1].position;
-				promptSaveRequest(position);
 				cancel.callback();
 			}
 		};
 
 		cancel.callback = e => {
 			if (cancel.removeLastMarker) {
-				measure.removeMarker(measure.points.length - 1);
+				segment.removeMarker(segmentsegment.points.length - 1);
 			}
 			domElement.removeEventListener('mouseup', insertionCallback, true);
 			this.viewer.removeEventListener('cancel_insertions', cancel.callback);
-			domElement.removeEventListener('mouseup', pointDropCallback, true);
 		};
 
-		if (measure.maxMarkers > 1) {
+		if (segment.maxMarkers > 1) {
 			this.viewer.addEventListener('cancel_insertions', cancel.callback);
 			domElement.addEventListener('mouseup', insertionCallback, true);
 		}
 
-		if (measure.maxMarkers == 1) {
-			domElement.addEventListener('mouseup', pointDropCallback, true);
-		}
-
-		measure.addMarker(new THREE.Vector3(0, 0, 0));
+		segment.addMarker(new THREE.Vector3(0, 0, 0));
 		this.viewer.inputHandler.startDragging(
-			measure.spheres[measure.spheres.length - 1]);
+			segment.spheres[segment.spheres.length - 1]);
 
-		this.viewer.scene.addMeasurement(measure);
+		this.viewer.scene.addSegment(segment);
 
-		return measure;
+		return segment;
 	}
 
 	update(){
 		let camera = this.viewer.scene.getActiveCamera();
 		let domElement = this.renderer.domElement;
-		let measurements = this.viewer.scene.measurements;
+		let segments = this.viewer.scene.segments;
 
 		let clientWidth = this.renderer.getSize().width;
 		let clientHeight = this.renderer.getSize().height;
@@ -144,12 +123,12 @@ export class MeasuringTool extends EventDispatcher{
 		this.light.position.copy(camera.position);
 
 		// make size independant of distance
-		for (let measure of measurements) {
-			measure.lengthUnit = this.viewer.lengthUnit;
-			measure.update();
+		for (let segment of segments) {
+			segment.lengthUnit = this.viewer.lengthUnit;
+			segment.update();
 
 			// spheres
-			for(let sphere of measure.spheres){
+			for(let sphere of segment.spheres){
 				let distance = camera.position.distanceTo(sphere.getWorldPosition(new THREE.Vector3()));
 				let pr = Utils.projectedRadius(1, camera, distance, clientWidth, clientHeight);
 				let scale = (15 / pr);
@@ -157,7 +136,7 @@ export class MeasuringTool extends EventDispatcher{
 			}
 
 			// labels
-			let labels = measure.edgeLabels.concat(measure.angleLabels);
+			let labels = segment.edgeLabels.concat(segment.angleLabels);
 			for(let label of labels){
 				let distance = camera.position.distanceTo(label.getWorldPosition(new THREE.Vector3()));
 				let pr = Utils.projectedRadius(1, camera, distance, clientWidth, clientHeight);
@@ -166,10 +145,10 @@ export class MeasuringTool extends EventDispatcher{
 			}
 
 			// coordinate labels
-			for (let j = 0; j < measure.coordinateLabels.length; j++) {
-				let label = measure.coordinateLabels[j];
-				let sphere = measure.spheres[j];
-				// measure.points[j]
+			for (let j = 0; j < segment.coordinateLabels.length; j++) {
+				let label = segment.coordinateLabels[j];
+				let sphere = segment.spheres[j];
+				// segment.points[j]
 
 				let distance = camera.position.distanceTo(sphere.getWorldPosition(new THREE.Vector3()));
 
@@ -197,8 +176,8 @@ export class MeasuringTool extends EventDispatcher{
 			}
 
 			// height label
-			if (measure.showHeight) {
-				let label = measure.heightLabel;
+			if (segment.showHeight) {
+				let label = segment.heightLabel;
 
 				{
 					let distance = label.position.distanceTo(camera.position);
@@ -208,7 +187,7 @@ export class MeasuringTool extends EventDispatcher{
 				}
 
 				{ // height edge
-					let edge = measure.heightEdge;
+					let edge = segment.heightEdge;
 					let lowpoint = edge.geometry.vertices[0].clone().add(edge.position);
 					let start = edge.geometry.vertices[2].clone().add(edge.position);
 					let end = edge.geometry.vertices[3].clone().add(edge.position);
@@ -242,7 +221,7 @@ export class MeasuringTool extends EventDispatcher{
 			}
 
 			{ // area label
-				let label = measure.areaLabel;
+				let label = segment.areaLabel;
 				let distance = label.position.distanceTo(camera.position);
 				let pr = Utils.projectedRadius(1, camera, distance, clientWidth, clientHeight);
 
