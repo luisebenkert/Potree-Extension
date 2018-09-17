@@ -2,6 +2,20 @@ export class Infobar{
 
 	constructor(viewer){
 		this.viewer = viewer;
+
+		this.displayVolumeInfo = function(volumeBox){			
+			$('#vlGeneralName').html(volumeBox.name);
+			$('#vlGeneralID').html(volumeBox.uuid);
+			$('#vlPositionX').html(volumeBox.position.x);
+			$('#vlPositionY').html(volumeBox.position.y);
+			$('#vlPositionZ').html(volumeBox.position.z);
+			$('#vlDimensionX').html(volumeBox.scale.x);
+			$('#vlDimensionY').html(volumeBox.scale.y);
+			$('#vlDimensionZ').html(volumeBox.scale.z);
+
+			//test
+			//$('#vlDatabaseInfo').innerHTML = volumeBox.scale.z;
+		}
 	}
 
 	createToolIcon(icon, title, callback){
@@ -26,20 +40,5 @@ export class Infobar{
     let infoBox = $('#infobarText');
   }
 
-	displayVolumeInfo(volumeBox){
-		console.log(volumeBox);
-		$('#vlGeneralName').innerHTML = volumeBox.name;
-		$('#vlGeneralID').innerHTML = volumeBox.id;
 
-		$('#vlPositionX').innerHTML = volumeBox.position.x;
-		$('#vlPositionY').innerHTML = volumeBox.position.y;
-		$('#vlPositionZ').innerHTML = volumeBox.position.z;
-
-		$('#vlDimensionX').innerHTML = volumeBox.scale.x;
-		$('#vlDimensionY').innerHTML = volumeBox.scale.y;
-		$('#vlDimensionZ').innerHTML = volumeBox.scale.z;
-		
-
-		//$('#vlDatabaseInfo').innerHTML = volumeBox.scale.z;
-	}
 }

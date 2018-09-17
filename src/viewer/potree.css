@@ -99,15 +99,20 @@
 
 .infoField {
   float: right;
-  margin-right: 50px;
+  margin-right: 10px;
+  margin-left: 20px;
   background-color: var(--font-color);
   color: black;
-  width: 100px;
+  width: calc(100% - 80px);
   align: right;
 }
 
 .infobar_panel {
   padding-left:10px;
+}
+
+.dividerPanel {
+  padding-bottom: 10px;
 }
 
 #sidebar_root {

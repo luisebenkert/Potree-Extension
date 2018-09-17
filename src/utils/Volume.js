@@ -76,12 +76,10 @@ export class Volume extends THREE.Object3D {
 	}
 
 	set clip (value) {
-
 		if(this._clip !== value){
 			this._clip = value;
 
-			this.update();
-
+			this.update();			
 			this.dispatchEvent({
 				type: "clip_changed",
 				object: this

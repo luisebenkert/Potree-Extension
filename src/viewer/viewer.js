@@ -958,14 +958,16 @@ export class Viewer extends EventDispatcher{
 		}
 	}
 
-	onVolumeSelected(e){
-		this.toggleInfobar();
-		console.log('test');
-		console.log(this.infobar);
+	onVolumeUpdated(e) {		
 		this.infobar.displayVolumeInfo(e.target);
 	}
 
-	onVolumeDeselected(){
+	onVolumeSelected(e){
+		this.toggleInfobar();
+		this.infobar.displayVolumeInfo(e.target);
+	}
+
+	onVolumeDeselected(e){
 		this.toggleInfobar();
 	}
 

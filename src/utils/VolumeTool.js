@@ -26,7 +26,7 @@ export class VolumeTool extends EventDispatcher{
 			this.scene.remove(e.volume);
 		};
 
-		this.onAdd = e => {			
+		this.onAdd = e => {
 			this.scene.add(e.volume);
 		};
 
@@ -82,6 +82,7 @@ export class VolumeTool extends EventDispatcher{
 		};
 
 		let drag = e => {
+			updateInfo(e);
 			let camera = this.viewer.scene.getActiveCamera();
 
 			let I = Utils.getMousePointCloudIntersection(
@@ -113,18 +114,26 @@ export class VolumeTool extends EventDispatcher{
 			this.viewer.removeEventListener('cancel_insertions', cancel.callback);
 		};
 
+		let updateInfo = (e) => {
+			this.viewer.onVolumeUpdated(e);
+		}
+
 		let select = (e) => {
 			this.viewer.onVolumeSelected(e);
 		}
 
-		let deselect = () => {
-			this.viewer.onVolumeDeselected();
+		let deselect = (e) => {
+			this.viewer.onVolumeDeselected(e);
 		}
 
 		volume.addEventListener('drag', drag);
 		volume.addEventListener('drop', drop);
 		volume.addEventListener('select', select);
 		volume.addEventListener('deselect', deselect);
+		volume.addEventListener('scale_changed', updateInfo);
+		volume.addEventListener('position_changed', updateInfo);
+		volume.addEventListener('orientation_changed', updateInfo);
+		volume.addEventListener('clip_changed', updateInfo);
 
 		this.viewer.addEventListener('cancel_insertions', cancel.callback);
 

@@ -247,7 +247,7 @@ export class VolumePanel extends MeasurePanel{
 		let handle = null;
 		{ // START FILTER
 			let url = `${viewer.server}/create_regions_filter?pointclouds=[${pointcloudsArg}]&regions=[${regionsArg}]`;
-			
+
 			//console.log(url);
 
 			info("estimating results ...");
