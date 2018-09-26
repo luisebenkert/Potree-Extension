@@ -11,6 +11,31 @@ export class VolumeTool extends EventDispatcher{
 		this.viewer = viewer;
 		this.renderer = viewer.renderer;
 
+		this.viewer.scene.addEventListener('display_saved_volume', e => {
+			let item = this.startInsertion({
+				clip: true,
+				volume: {
+					id: e.volume.id,
+					scale: {
+						x: e.volume.scale_x,
+						y: e.volume.scale_y,
+						z: e.volume.scale_z
+					},
+					position: {
+						x: e.volume.position_x,
+						y: e.volume.position_y,
+						z: e.volume.position_z
+					},
+					rotation: {
+						x: e.volume.rotation_x,
+						y: e.volume.rotation_y,
+						z: e.volume.rotation_z
+					},
+					material: e.volume.material_id
+				}
+			});
+		});
+
 		this.addEventListener('start_inserting_volume', e => {
 			this.viewer.dispatchEvent({
 				type: 'cancel_insertions'
@@ -48,7 +73,6 @@ export class VolumeTool extends EventDispatcher{
 	}
 
 	onSceneChange(e){
-		console.log('scene change');
 		if(e.oldScene){
 			e.oldScene.removeEventListeners('volume_added', this.onAdd);
 			e.oldScene.removeEventListeners('volume_removed', this.onRemove);
@@ -60,10 +84,28 @@ export class VolumeTool extends EventDispatcher{
 
 	startInsertion (args = {}) {
 		let volume;
+		let startDrag = true;
 		if(args.type){
 			volume = new args.type();
 		}else{
 			volume = new BoxVolume();
+		}
+
+		if(args.volume){
+			startDrag = false;
+			console.log(args.volume);
+			console.log(volume);
+			volume._id = args.volume.id;
+			volume.scale.x = args.volume.scale.x * 1;
+			volume.scale.y = args.volume.scale.y * 1;
+			volume.scale.z = args.volume.scale.z * 1;
+			volume.rotation.x = args.volume.rotation.x * 1;
+			volume.rotation.y = args.volume.rotation.y * 1;
+			volume.rotation.z = args.volume.rotation.z * 1;
+			volume.position.x = args.volume.position.x * 1;
+			volume.position.y = args.volume.position.y * 1;
+			volume.position.z = args.volume.position.z * 1;
+			volume.material = args.volume.material * 1;
 		}
 
 		volume.clip = args.clip || false;
@@ -84,13 +126,12 @@ export class VolumeTool extends EventDispatcher{
 		let drag = e => {
 			updateInfo(e);
 			let camera = this.viewer.scene.getActiveCamera();
-
 			let I = Utils.getMousePointCloudIntersection(
 				e.drag.end,
 				this.viewer.scene.getActiveCamera(),
 				this.viewer,
 				this.viewer.scene.pointclouds,
-				{pickClipped: false})
+				{pickClipped: false});
 
 			if (I) {
 				volume.position.copy(I.location);  //exact middle of volume cube
@@ -120,6 +161,7 @@ export class VolumeTool extends EventDispatcher{
 
 		let select = (e) => {
 			this.viewer.onVolumeSelected(e);
+			console.log(e.target);
 		}
 
 		let deselect = (e) => {
@@ -137,7 +179,9 @@ export class VolumeTool extends EventDispatcher{
 
 		this.viewer.addEventListener('cancel_insertions', cancel.callback);
 
-		this.viewer.inputHandler.startDragging(volume);
+		if(startDrag){
+			this.viewer.inputHandler.startDragging(volume);
+		}
 
 		return volume;
 	}

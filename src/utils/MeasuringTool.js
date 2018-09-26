@@ -100,7 +100,7 @@ export class MeasuringTool extends EventDispatcher{
 
 		let pointDropCallback = (e) => {
 			if (e.button === THREE.MOUSE.LEFT) {
-				var position = measure.spheres[measure.spheres.length - 1].position;
+				var position = measure.spheres[measure.spheres.length - 1].position;				
 				promptSaveRequest(position);
 				cancel.callback();
 			}
@@ -169,7 +169,7 @@ export class MeasuringTool extends EventDispatcher{
 			for (let j = 0; j < measure.coordinateLabels.length; j++) {
 				let label = measure.coordinateLabels[j];
 				let sphere = measure.spheres[j];
-				// measure.points[j]
+				//console.log(measure.points[j]);
 
 				let distance = camera.position.distanceTo(sphere.getWorldPosition(new THREE.Vector3()));
 

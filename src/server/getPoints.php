@@ -9,11 +9,11 @@
 
 function toCoordinate($value){
 	$coord = explode(';', $value);
-	
+
 	for($i = 0; $i < count($coord); $i++){
 		$coord[$i] = (double)$coord[$i];
 	}
-	
+
 	return $coord;
 }
 
@@ -56,4 +56,3 @@ $path = realpath($_GET['pc']);
 echo($path);
 
 ?>
-

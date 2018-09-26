@@ -78,12 +78,35 @@
   --measurement-detail-area-bg-color: #eee;
 }
 
+#vlMaterialSelect {
+  width: 100%;
+  cursor: pointer;
+}
+
+.buttonBar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: space-between;
+  align-items: flex-start;
+  margin-top: 1em;
+  margin-bottom: 3em;
+}
+
+.buttonBarChild {
+  order: 0;
+  flex: 1 1 auto;
+  cursor: pointer;
+}
+
 .infobar {
   right: 0;
   position: absolute;
   min-height: 100%;
   height: 100%;
   width: 300px;
+  padding-top: 10px;
   border-right: 1px solid black !important;
   overflow: hidden;
   color: var(--font-color);
@@ -92,26 +115,71 @@
   font-size: .9em;
 }
 
+.flexBox {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: stretch;
+  -ms-flex-line-pack: stretch;
+  align-content: stretch;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
 .infoIdentifier {
-  float: left;
-  width: 50px;
+  -webkit-order: 0;
+  -ms-flex-order: 0;
+  order: 0;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  border-right: solid 15px transparent;
+  box-sizing: border-box;
+  height: 20px;
+  line-height: 25px;
 }
 
 .infoField {
-  float: right;
-  margin-right: 10px;
-  margin-left: 20px;
+  height: 25px;
+  -webkit-order: 0;
+  -ms-flex-order: 0;
+  order: 0;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: auto;
+  -ms-flex-item-align: auto;
+  align-self: auto;
   background-color: var(--font-color);
   color: black;
-  width: calc(100% - 80px);
-  align: right;
+  box-sizing: border-box;
+}
+
+.shortFlexBox {
+  width: 50px;
 }
 
 .infobar_panel {
-  padding-left:10px;
+  margin-left:20px;
+  margin-right:20px;
 }
 
 .dividerPanel {
+  padding-top: 10px;
   padding-bottom: 10px;
 }
 

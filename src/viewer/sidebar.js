@@ -30,7 +30,6 @@ export class Sidebar{
 		this.measuringTool = new MeasuringTool(this.viewer);
 		this.profileTool = new ProfileTool(this.viewer);
 		this.volumeTool = new VolumeTool(this.viewer);
-
 	}
 
 	createToolIcon(icon, title, callback){
@@ -86,8 +85,8 @@ export class Sidebar{
 		));
 
 		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/angle.png',
-			'[title]tt.angle_measurement',
+			Potree.resourcePath + '/icons/nonele.png',
+			'Test',
 			() => {
 				console.log(this.viewer.scene.volumes);
 			}
@@ -110,20 +109,6 @@ export class Sidebar{
 
 				let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 				let jsonNode = measurementsRoot.children.find(child => child.data.uuid === measurement.uuid);
-				$.jstree.reference(jsonNode.id).deselect_all();
-				$.jstree.reference(jsonNode.id).select_node(jsonNode.id);
-			}
-		));
-
-		// VOLUME
-		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/clip_volume.svg',
-			'[title]tt.clip_volume',
-			() => {
-				let item = this.volumeTool.startInsertion({clip: true});
-
-				let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
-				let jsonNode = measurementsRoot.children.find(child => child.data.uuid === item.uuid);
 				$.jstree.reference(jsonNode.id).deselect_all();
 				$.jstree.reference(jsonNode.id).select_node(jsonNode.id);
 			}
@@ -524,7 +509,7 @@ export class Sidebar{
 		this.viewer.scene.addEventListener("profile_added", onProfileAdded);
 		this.viewer.scene.addEventListener("volume_added", onVolumeAdded);
 		this.viewer.scene.addEventListener("polygon_clip_volume_added", onVolumeAdded);
-		this.viewer.scene.annotations.addEventListener("annotation_added", onAnnotationAdded);		
+		this.viewer.scene.annotations.addEventListener("annotation_added", onAnnotationAdded);
 
 		let onMeasurementRemoved = (e) => {
 			let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
@@ -702,6 +687,12 @@ export class Sidebar{
 					this.viewer.scene.removeAllClipVolumes();
 				}
 			));
+		}
+
+		{ // LOAD ALL SAVED CLIPS
+			$("#btnLoadClippings").click((e) => {
+				this.viewer.scene.getAllVolumes();				
+			});
 		}
 
 	}

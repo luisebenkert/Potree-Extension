@@ -5,12 +5,15 @@ import {CameraMode} from "../defines.js";
 import {View} from "./View.js";
 import {Utils} from "../utils.js";
 import {EventDispatcher} from "../EventDispatcher.js";
+import {DBConnection} from "../../database/connection.js";
 
 
 export class Scene extends EventDispatcher{
 
 	constructor(){
 		super();
+
+		this.connection = new DBConnection(this);
 
 		this.annotations = new Annotation();
 
@@ -123,6 +126,19 @@ export class Scene extends EventDispatcher{
 			pointcloud: pointcloud
 		});
 	};
+
+	displayVolumes (volumes) {		
+		for (var i = 0; i < volumes.length; i++) {
+			this.dispatchEvent({
+				type: 'display_saved_volume',
+				volume: volumes[i]
+			});
+		}
+	}
+
+	getAllVolumes () {
+		let volumes = this.connection.getAllVolumes();
+	}
 
 	addVolume (volume) {
 		this.volumes.push(volume);

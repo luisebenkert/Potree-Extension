@@ -149,11 +149,22 @@ export class Measure extends THREE.Object3D {
 		{ // Event Listeners
 			let drag = (e) => {
 				let I = Utils.getMousePointCloudIntersection(
-					e.drag.end, 
-					e.viewer.scene.getActiveCamera(), 
-					e.viewer, 
+					e.drag.end,
+					e.viewer.scene.getActiveCamera(),
+					e.viewer,
 					e.viewer.scene.pointclouds,
 					{pickClipped: true});
+
+
+				// TODO: fix this 
+
+				console.log(I);
+				let thisNode = I.pointcloud.visibleNodes[0];
+				let otherNode = e.viewer.scene.volumes[0];
+				console.log(thisNode);
+				console.log(otherNode);
+				console.log(thisNode.getPointsInBox(otherNode));
+
 
 				if (I) {
 					let i = this.spheres.indexOf(e.drag.object);
@@ -315,7 +326,7 @@ export class Measure extends THREE.Object3D {
 
 			{ // coordinate labels
 				let coordinateLabel = this.coordinateLabels[0];
-				
+
 				let msg = position.toArray().map(p => Utils.addCommas(p.toFixed(2))).join(" / ");
 				coordinateLabel.setText(msg);
 

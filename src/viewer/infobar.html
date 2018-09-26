@@ -5,34 +5,75 @@
 		<div id="volumeInfo" class="infobar_panel">
 			<div class="divider"><span>General</span></div>
 			<div id="vlGeneralInfo" class="dividerPanel">
-				<div class="infoIdentifier">Name</div>
-				<div id="vlGeneralName" class="infoField"></div><br /><br />
-				<div class="infoIdentifier">ID</div>
-				<div id="vlGeneralID" class="infoField"></div><br /><br />
+				<div class="flexBox">
+					<div class="infoIdentifier shortFlexBox">Type</div>
+					<input readonly disabled="true" id="vlGeneralType" class="infoField"></input><br /><br />
+				</div>
+				<div class="flexBox">
+					<div class="infoIdentifier shortFlexBox">ID</div>
+					<input readonly disabled="true" id="vlGeneralID" class="infoField"></input><br /><br />
+				</div>
 			</div>
 			<div class="divider"><span>Position</span></div>
 			<div id="vlPositionInfo" class="dividerPanel">
-				<div class="infoIdentifier">X</div>
-				<div id="vlPositionX" class="infoField"></div><br /><br />
-				<div class="infoIdentifier">Y</div>
-				<div id="vlPositionY" class="infoField"></div><br /><br />
-				<div class="infoIdentifier">Z</div>
-				<div id="vlPositionZ" class="infoField"></div><br /><br />
+				<div class="flexBox">
+					<div class="infoIdentifier">X</div>
+					<input id="vlPositionX" class="infoField"></input><br /><br />
+				</div>
+				<div class="flexBox">
+					<div class="infoIdentifier">Y</div>
+					<input id="vlPositionY" class="infoField"></input><br /><br />
+				</div>
+				<div class="flexBox">
+					<div class="infoIdentifier">Z</div>
+					<input id="vlPositionZ" class="infoField"></input><br /><br />
+				</div>
 			</div>
 			<div class="divider"><span>Dimensions</span></div>
 			<div id="vlDimensionsInfo" class="dividerPanel">
-				<div class="infoIdentifier">X</div>
-				<div id="vlDimensionX" class="infoField"></div><br /><br />
-				<div class="infoIdentifier">Y</div>
-				<div id="vlDimensionY" class="infoField"></div><br /><br />
-				<div class="infoIdentifier">Z</div>
-				<div id="vlDimensionZ" class="infoField"></div><br /><br />
+				<div class="flexBox">
+					<div class="infoIdentifier">X</div>
+					<input id="vlDimensionX" class="infoField"></input><br /><br />
+				</div>
+				<div class="flexBox">
+					<div class="infoIdentifier">Y</div>
+					<input id="vlDimensionY" class="infoField"></input><br /><br />
+				</div>
+				<div class="flexBox">
+					<div class="infoIdentifier">Z</div>
+					<input id="vlDimensionZ" class="infoField"></input><br /><br />
+				</div>
 			</div>
-			<div class="divider"><span>Database</span></div>
-			<div id="vlDatabaseInfo" class="dividerPanel">
+			<div class="divider"><span>Rotation</span></div>
+			<div id="vlRotationInfo" class="dividerPanel">
+				<div class="flexBox">
+					<div class="infoIdentifier">X</div>
+					<input id="vlRotationX" class="infoField"></input><br /><br />
+				</div>
+				<div class="flexBox">
+					<div class="infoIdentifier">Y</div>
+					<input id="vlRotationY" class="infoField"></input><br /><br />
+				</div>
+				<div class="flexBox">
+					<div class="infoIdentifier">Z</div>
+					<input id="vlRotationZ" class="infoField"></input><br /><br />
+				</div>
+			</div>
+			<div class="divider"><span>Material</span></div>
+			<div id="vlMaterial" class="dividerPanel">
+				<select id="vlMaterialSelect">
+					<option selected value="none">None</option>
+					<option value="wood">Wood</option>
+					<option value="concrete">Concrete</option>
+					<option value="glass">Glass</option>
+					<option value="metal">Metal</option>
+					<option value="plastic">Plastic</option>
+				</select>
+			</div>
+			<div class="buttonBar">
+				<button id="btnSaveVolumeBox" class="buttonBarChild">Save Volume Box</button>
+				<button id="btnDeleteVolumeBox" class="buttonBarChild">Delete Volume Box</button>
 			</div>
 		</div>
-
 	</div>
-
 </div>
