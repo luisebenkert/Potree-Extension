@@ -84,14 +84,6 @@ export class Sidebar{
 			}
 		));
 
-		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/nonele.png',
-			'Test',
-			() => {
-				console.log(this.viewer.scene.volumes);
-			}
-		));
-
 		// POINT
 		elToolbar.append(this.createToolIcon(
 			Potree.resourcePath + '/icons/point.svg',
@@ -691,7 +683,7 @@ export class Sidebar{
 
 		{ // LOAD ALL SAVED CLIPS
 			$("#btnLoadClippings").click((e) => {
-				this.viewer.scene.getAllVolumes();				
+				this.viewer.scene.getAllVolumes();
 			});
 		}
 

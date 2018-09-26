@@ -93,9 +93,7 @@ export class VolumeTool extends EventDispatcher{
 
 		if(args.volume){
 			startDrag = false;
-			console.log(args.volume);
-			console.log(volume);
-			volume._id = args.volume.id;
+			volume.uuid = args.volume.id;
 			volume.scale.x = args.volume.scale.x * 1;
 			volume.scale.y = args.volume.scale.y * 1;
 			volume.scale.z = args.volume.scale.z * 1;
@@ -161,7 +159,6 @@ export class VolumeTool extends EventDispatcher{
 
 		let select = (e) => {
 			this.viewer.onVolumeSelected(e);
-			console.log(e.target);
 		}
 
 		let deselect = (e) => {

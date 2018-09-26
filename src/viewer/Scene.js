@@ -127,12 +127,23 @@ export class Scene extends EventDispatcher{
 		});
 	};
 
-	displayVolumes (volumes) {		
+	volumeExists(volume){
+		for (var i = 0; i < this.volumes.length; i++) {
+			if(this.volumes[i].uuid === volume.id){
+				return true
+			}
+		}
+		return false
+	}
+
+	displayVolumes (volumes) {
 		for (var i = 0; i < volumes.length; i++) {
-			this.dispatchEvent({
-				type: 'display_saved_volume',
-				volume: volumes[i]
-			});
+			if(!this.volumeExists(volumes[i])) {
+				this.dispatchEvent({
+					type: 'display_saved_volume',
+					volume: volumes[i]
+				});
+			}
 		}
 	}
 
