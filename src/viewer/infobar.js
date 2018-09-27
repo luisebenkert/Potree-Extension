@@ -7,19 +7,6 @@ export class Infobar {
     this.viewer = viewer;
     this.connection = new DBConnection();
 
-    this.saveVolumeBox = function(volumeBox) {
-      this.saveMaterial(volumeBox);
-      volumeBox.prop  = 67;
-      this.connection.saveVolumeBox(volumeBox);
-    }
-
-    this.deleteVolumeBox = function(volumeBox) {
-      if (confirm('Are you sure you want to permanentely delete this volume box?')) {
-        this.viewer.scene.removeVolume(volumeBox);
-        this.connection.deleteVolumeBox(volumeBox);
-      }
-    }
-
     this.valueIsAccepted = function(value, type = '') {
       if ($.isNumeric(value)) {
         switch (type) {
@@ -74,7 +61,7 @@ export class Infobar {
       let id = self.getMaterialID(material);
       return id;
     }
-    
+
     this.saveMaterial = function(volumeBox){
       let id = self.getMaterialSelection();
       volumeBox.material_id = id;
@@ -116,8 +103,8 @@ export class Infobar {
       this.createVolumeInputListener(volumeBox, '#vlRotationX', ['rotation', 'x'], 'rotation');
       this.createVolumeInputListener(volumeBox, '#vlRotationY', ['rotation', 'y'], 'rotation');
       this.createVolumeInputListener(volumeBox, '#vlRotationZ', ['rotation', 'z'], 'rotation');
-      $('#btnSaveVolumeBox').click(function(){self.saveVolumeBox(volumeBox)});
-      $('#btnDeleteVolumeBox').click(function(){self.deleteVolumeBox(volumeBox)});
+      $('#btnSaveVolumeBox').click(function(){self.viewer.scene.saveVolumeBox(volumeBox)});
+      $('#btnDeleteVolumeBox').click(function(){self.viewer.scene.deleteVolumeBox(volumeBox)});
       $('#getPointsInBox').click(function(){self.getPointsInBox(volumeBox)});
       $('#vlMaterialSelect').bind('change',function(){self.saveMaterial(volumeBox)});
       this.updateVolumeInfo(volumeBox);

@@ -687,6 +687,18 @@ export class Sidebar{
 			});
 		}
 
+		{ // SAVE ALL CLIPS
+			$("#btnSaveClippings").click((e) => {
+				this.viewer.scene.saveAllVolumes();
+			});
+		}
+
+		{ // DELETE ALL CLIPS PERMANENTLY
+			$("#btnDeleteClippings").click((e) => {
+				this.viewer.scene.deleteAllVolumes();
+			});
+		}
+
 	}
 
 	initFilters(){

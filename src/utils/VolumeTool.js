@@ -1,6 +1,4 @@
-
-
-import {Volume, BoxVolume} from "./Volume.js";
+import {Volume, BoxVolume, SphereVolume} from "./Volume.js";
 import {Utils} from "../utils.js";
 import { EventDispatcher } from "../EventDispatcher.js";
 
@@ -11,8 +9,16 @@ export class VolumeTool extends EventDispatcher{
 		this.viewer = viewer;
 		this.renderer = viewer.renderer;
 
+		this.getVolumeType = (string) => {
+			switch (string) {
+				case 'SphereVolume': return SphereVolume;
+				default: return BoxVolume;
+			}
+		}
+
 		this.viewer.scene.addEventListener('display_saved_volume', e => {
 			let item = this.startInsertion({
+				type: this.getVolumeType(e.volume.type),
 				clip: true,
 				volume: {
 					id: e.volume.id,

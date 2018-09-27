@@ -147,8 +147,37 @@ export class Scene extends EventDispatcher{
 		}
 	}
 
+	saveVolumeBox (volumeBox) {
+		this.connection.saveVolumeBox(volumeBox);
+	}
+
+	deleteVolumeBox (volumeBox, prompt = true) {
+		let confirmed = false;
+		if (prompt === true) {
+			confirmed = confirm('Are you sure you want to permanentely delete this volume box?');
+		}
+		if (confirmed === true || prompt === false) {
+			this.removeVolume(volumeBox);
+			this.connection.deleteVolumeBox(volumeBox);
+		}
+	}
+
 	getAllVolumes () {
 		let volumes = this.connection.getAllVolumes();
+	}
+
+	saveAllVolumes () {
+		for (var i = 0; i < this.volumes.length; i++) {
+			this.saveVolumeBox(this.volumes[i]);
+		}
+	}
+
+	deleteAllVolumes () {
+		if (confirm('Are you sure you want to permanentely delete all volume boxes?')) {
+			for (var i = 0; i < this.volumes.length; i++) {
+				this.deleteVolumeBox(this.volumes[i], false);
+			}
+		}
 	}
 
 	addVolume (volume) {
