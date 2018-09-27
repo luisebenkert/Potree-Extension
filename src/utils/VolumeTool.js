@@ -31,7 +31,7 @@ export class VolumeTool extends EventDispatcher{
 						y: e.volume.rotation_y,
 						z: e.volume.rotation_z
 					},
-					material: e.volume.material_id
+					material_id: e.volume.material_id
 				}
 			});
 		});
@@ -103,7 +103,7 @@ export class VolumeTool extends EventDispatcher{
 			volume.position.x = args.volume.position.x * 1;
 			volume.position.y = args.volume.position.y * 1;
 			volume.position.z = args.volume.position.z * 1;
-			volume.material = args.volume.material * 1;
+			volume.material_id = args.volume.material_id * 1;
 		}
 
 		volume.clip = args.clip || false;

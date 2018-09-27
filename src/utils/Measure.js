@@ -155,17 +155,6 @@ export class Measure extends THREE.Object3D {
 					e.viewer.scene.pointclouds,
 					{pickClipped: true});
 
-
-				// TODO: fix this 
-
-				console.log(I);
-				let thisNode = I.pointcloud.visibleNodes[0];
-				let otherNode = e.viewer.scene.volumes[0];
-				console.log(thisNode);
-				console.log(otherNode);
-				console.log(thisNode.getPointsInBox(otherNode));
-
-
 				if (I) {
 					let i = this.spheres.indexOf(e.drag.object);
 					if (i !== -1) {

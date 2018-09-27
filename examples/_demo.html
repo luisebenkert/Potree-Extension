@@ -64,7 +64,7 @@
 		viewer.setScene(sceneSG);
 
 		// Sorvilier point cloud in scene 1
-		Potree.loadPointCloud("../pointclouds/old_town/cloud.js", "sigeom.sa", function(e){
+		Potree.loadPointCloud("../pointclouds/lion_takanawa/cloud.js", "lion", function(e){
 			sceneSG.addPointCloud(e.pointcloud);
 			sceneSG.view.position.set(4.15, -6.12, 8.54);
 			sceneSG.view.lookAt(new THREE.Vector3(0, -0.098, 4.23));

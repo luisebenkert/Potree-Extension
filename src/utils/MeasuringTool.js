@@ -12,6 +12,8 @@ export class MeasuringTool extends EventDispatcher{
 		this.viewer = viewer;
 		this.renderer = viewer.renderer;
 
+		this.connection = new DBConnection(this);
+
 		this.addEventListener('start_inserting_measurement', e => {
 			this.viewer.dispatchEvent({
 				type: 'cancel_insertions'
@@ -63,7 +65,12 @@ export class MeasuringTool extends EventDispatcher{
 		let promptSaveRequest = (position) => {
 			var data = prompt("Do you want to save this point? Optionally, you can add more information here:");
 			if (data != null) {
-				DBConnection.savePoint(position, data);
+				var point = {
+					position: position,
+					prop: data
+				}
+				console.log(point);
+				this.connection.savePoint(point);
 			}
 		}
 
@@ -100,7 +107,7 @@ export class MeasuringTool extends EventDispatcher{
 
 		let pointDropCallback = (e) => {
 			if (e.button === THREE.MOUSE.LEFT) {
-				var position = measure.spheres[measure.spheres.length - 1].position;				
+				var position = measure.spheres[measure.spheres.length - 1].position;
 				promptSaveRequest(position);
 				cancel.callback();
 			}

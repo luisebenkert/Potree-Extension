@@ -74,10 +74,10 @@ export class Infobar {
       let id = self.getMaterialID(material);
       return id;
     }
-
+    
     this.saveMaterial = function(volumeBox){
       let id = self.getMaterialSelection();
-      volumeBox.material = id;
+      volumeBox.material_id = id;
     }
 
     this.getMaterialID = function(material) {
@@ -91,7 +91,22 @@ export class Infobar {
       }
     }
 
+    this.getMaterialName = function(id) {
+      switch (id) {
+        case 1: return 'concrete';
+        case 2: return 'glass';
+        case 3: return 'metal';
+        case 4: return 'plastic';
+        case 5: return 'wood';
+        case 6: return 'none';
+      }
+    }
+
     this.initVolumeInfo = function(volumeBox) {
+      volumeBox.type = volumeBox.constructor.name;
+      if(volumeBox.material_id === undefined) {
+        volumeBox.material_id = this.getMaterialID('none');
+      }
       this.createVolumeInputListener(volumeBox, '#vlPositionX', ['position', 'x']);
       this.createVolumeInputListener(volumeBox, '#vlPositionY', ['position', 'y']);
       this.createVolumeInputListener(volumeBox, '#vlPositionZ', ['position', 'z']);
@@ -103,6 +118,7 @@ export class Infobar {
       this.createVolumeInputListener(volumeBox, '#vlRotationZ', ['rotation', 'z'], 'rotation');
       $('#btnSaveVolumeBox').click(function(){self.saveVolumeBox(volumeBox)});
       $('#btnDeleteVolumeBox').click(function(){self.deleteVolumeBox(volumeBox)});
+      $('#getPointsInBox').click(function(){self.getPointsInBox(volumeBox)});
       $('#vlMaterialSelect').bind('change',function(){self.saveMaterial(volumeBox)});
       this.updateVolumeInfo(volumeBox);
     }
@@ -123,7 +139,7 @@ export class Infobar {
     }
 
     this.updateVolumeInfo = function(volumeBox) {
-      $('#vlGeneralType').val(volumeBox.name);
+      $('#vlGeneralType').val(volumeBox.type);
       $('#vlGeneralID').val(volumeBox.uuid);
       $('#vlPositionX').val(volumeBox.position.x);
       $('#vlPositionY').val(volumeBox.position.y);
@@ -134,7 +150,7 @@ export class Infobar {
       $('#vlRotationX').val(volumeBox.rotation.x);
       $('#vlRotationY').val(volumeBox.rotation.y);
       $('#vlRotationZ').val(volumeBox.rotation.z);
-      $('#vlMaterial').val(volumeBox.material);
+      $('#vlMaterialSelect').val(this.getMaterialName(volumeBox.material_id));
     }
   }
 
