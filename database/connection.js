@@ -21,13 +21,11 @@ export class DBConnection {
       ON DUPLICATE KEY UPDATE
       id = '` + volumeBox.uuid +`', position_x = ` + volumeBox.position.x +`, position_y = ` + volumeBox.position.y +`, position_z = ` + volumeBox.position.z +`, scale_x = ` + volumeBox.scale.x +`, scale_y = ` + volumeBox.scale.y +`, scale_z = ` + volumeBox.scale.z +
       `, rotation_x = ` + volumeBox.rotation.x +`, rotation_y = ` + volumeBox.rotation.y +`, rotation_z = ` + volumeBox.rotation.z +`, material_id = ` + volumeBox.material +`, prop1 = ` + volumeBox.prop ;
-      console.log(sql);
       this.sendQuery('set', sql);
     }
 
     this.deleteVolumeBox = function(volumeBox) {
       let sql = `DELETE FROM box WHERE id = '` + volumeBox.uuid +`'`;
-      console.log(sql);
       this.sendQuery('set', sql);
     }
 
@@ -45,7 +43,10 @@ export class DBConnection {
             callback(this.responseText);
           }
           else {
-            console.log(this.responseText);
+            switch (this.responseText) {
+              case 'true': console.log('Success: \n' + sql); break;
+              case 'false': console.log('Something went wrong. SQL Query was not successful'); break;
+            }
           }
         }
       };

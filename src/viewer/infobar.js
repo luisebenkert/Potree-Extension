@@ -71,15 +71,12 @@ export class Infobar {
 
     this.getMaterialSelection = function(){
       let material = $('#vlMaterialSelect').val();
-      console.log(material);
       let id = self.getMaterialID(material);
       return id;
     }
 
     this.saveMaterial = function(volumeBox){
-      console.log('save');
       let id = self.getMaterialSelection();
-      console.log(id);
       volumeBox.material = id;
     }
 
@@ -104,8 +101,8 @@ export class Infobar {
       this.createVolumeInputListener(volumeBox, '#vlRotationX', ['rotation', 'x'], 'rotation');
       this.createVolumeInputListener(volumeBox, '#vlRotationY', ['rotation', 'y'], 'rotation');
       this.createVolumeInputListener(volumeBox, '#vlRotationZ', ['rotation', 'z'], 'rotation');
-      $('#btnSaveVolumeBox').click(function(){self.saveVolumeBox(volumeBox);});
-      $('#btnDeleteVolumeBox').click(function(){self.deleteVolumeBox(volumeBox);});
+      $('#btnSaveVolumeBox').click(function(){self.saveVolumeBox(volumeBox)});
+      $('#btnDeleteVolumeBox').click(function(){self.deleteVolumeBox(volumeBox)});
       $('#vlMaterialSelect').bind('change',function(){self.saveMaterial(volumeBox)});
       this.updateVolumeInfo(volumeBox);
     }
@@ -121,7 +118,8 @@ export class Infobar {
       this.removeVolumeInputListener(volumeBox, '#vlRotationY', ['rotation', 'y']);
       this.removeVolumeInputListener(volumeBox, '#vlRotationZ', ['rotation', 'z']);
       $('#btnSaveVolumeBox').unbind('click');
-      $('#vlMaterial').unbind('change');
+      $('#btnDeleteVolumeBox').unbind('click');
+      $('#vlMaterialSelect').unbind('change');
     }
 
     this.updateVolumeInfo = function(volumeBox) {
