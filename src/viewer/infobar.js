@@ -90,6 +90,7 @@ export class Infobar {
     }
 
     this.initVolumeInfo = function(volumeBox) {
+      console.log(volumeBox);
       volumeBox.type = volumeBox.constructor.name;
       if(volumeBox.material_id === undefined) {
         volumeBox.material_id = this.getMaterialID('none');

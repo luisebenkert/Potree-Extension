@@ -174,8 +174,8 @@ export class Scene extends EventDispatcher{
 
 	deleteAllVolumes () {
 		if (confirm('Are you sure you want to permanentely delete all volume boxes?')) {
-			for (var i = 0; i < this.volumes.length; i++) {
-				this.deleteVolumeBox(this.volumes[i], false);
+			while (this.volumes.length != 0) {
+				this.deleteVolumeBox(this.volumes[0], false);
 			}
 		}
 	}
@@ -276,6 +276,12 @@ export class Scene extends EventDispatcher{
 		}
 
 		while (this.volumes.length > 0) {
+			this.removeVolume(this.volumes[0]);
+		}
+	}
+
+	removeAllVolumes(){
+		while (this.volumes.length != 0) {
 			this.removeVolume(this.volumes[0]);
 		}
 	}

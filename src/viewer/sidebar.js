@@ -682,7 +682,7 @@ export class Sidebar{
 		}
 
 		{ // LOAD ALL SAVED CLIPS
-			$("#btnLoadClippings").click((e) => {
+			$("#btnShowClippings").click((e) => {
 				this.viewer.scene.getAllVolumes();
 			});
 		}
@@ -698,6 +698,12 @@ export class Sidebar{
 				this.viewer.scene.deleteAllVolumes();
 			});
 		}
+
+		{ // SHOW / HIDE ALL CLIPS
+			$("#btnHideClippings").click((e) => {
+				this.viewer.scene.removeAllVolumes();
+			});
+		}	
 
 	}
 

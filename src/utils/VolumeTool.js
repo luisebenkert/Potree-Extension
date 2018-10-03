@@ -10,6 +10,7 @@ export class VolumeTool extends EventDispatcher{
 		this.renderer = viewer.renderer;
 
 		this.getVolumeType = (string) => {
+			console.log(string);
 			switch (string) {
 				case 'SphereVolume': return SphereVolume;
 				default: return BoxVolume;
@@ -93,12 +94,15 @@ export class VolumeTool extends EventDispatcher{
 		let startDrag = true;
 		if(args.type){
 			volume = new args.type();
+			volume.type = this.getVolumeType(args.type.name);						 
 		}else{
 			volume = new BoxVolume();
+			volume.type = this.getVolumeType('BoxVolume');
 		}
 
 		if(args.volume){
 			startDrag = false;
+			volume.type = args.type;
 			volume.uuid = args.volume.id;
 			volume.scale.x = args.volume.scale.x * 1;
 			volume.scale.y = args.volume.scale.y * 1;
