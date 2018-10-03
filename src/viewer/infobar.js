@@ -67,29 +67,17 @@ export class Infobar {
       volumeBox.material_id = id;
     }
 
+    const MATERIAL_IDS = ['none', 'concrete', 'glass', 'metal', 'plastic', 'wood']
+
     this.getMaterialID = function(material) {
-      switch (material) {
-        case 'concrete': return 1;
-        case 'glass': return 2;
-        case 'metal': return 3;
-        case 'plastic': return 4;
-        case 'wood': return 5;
-        case 'none': return 6;
-      }
+      return MATERIAL_IDS.indexOf(material)
     }
 
     this.getMaterialName = function(id) {
-      switch (id) {
-        case 1: return 'concrete';
-        case 2: return 'glass';
-        case 3: return 'metal';
-        case 4: return 'plastic';
-        case 5: return 'wood';
-        case 6: return 'none';
-      }
+      return MATERIAL_IDS[id]
     }
 
-    this.initVolumeInfo = function(volumeBox) {      
+    this.initVolumeInfo = function(volumeBox) {
       volumeBox.type = volumeBox.constructor.name;
       if(volumeBox.material_id === undefined) {
         volumeBox.material_id = this.getMaterialID('none');
