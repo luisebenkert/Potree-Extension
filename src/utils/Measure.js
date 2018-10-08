@@ -155,6 +155,23 @@ export class Measure extends THREE.Object3D {
 					e.viewer.scene.pointclouds,
 					{pickClipped: true});
 
+				console.log(I);
+				let points = []
+				let positionArray = I.pointcloud.root.geometryNode.geometry.attributes.position;
+				for(let i = 0; i < positionArray.length; i+3) {
+					console.log(positionArray[i]);
+					if (0.13 > positionArray[i] && positionArray[i] < 0.15) {
+						console.log('x fits');
+						if (-0.34 > positionArray[i] && positionArray[i] < 0.15) {
+							console.log('y fits');
+							if (4.3 > positionArray[i] && positionArray[i] < 4.5) {
+								console.log('z fits');
+								//save new point to points
+							}
+						}
+					}
+				}
+
 				if (I) {
 					let i = this.spheres.indexOf(e.drag.object);
 					if (i !== -1) {

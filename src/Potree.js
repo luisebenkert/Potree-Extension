@@ -17,6 +17,7 @@ export * from "./Points.js";
 export * from "./Potree_update_visibility.js";
 export * from "./PotreeRenderer.js";
 export * from "./ProfileRequest.js";
+export * from "./DownloadRequest.js";
 export * from "./TextSprite.js";
 export * from "./utils.js";
 export * from "./Version.js";
@@ -209,7 +210,7 @@ export function loadPointCloud(path, name, callback){
 			});
 			elButtonContainer.find("label:first").each( (index, value) => {
 				$(value).css("border-radius", "4px 0px 0px 4px");
-				
+
 			});
 			elButtonContainer.find("label:last").each( (index, value) => {
 				$(value).css("border-radius", "0px 4px 4px 0px");

@@ -122,6 +122,7 @@ export class PointCloudOctree extends PointCloudTree {
 		this.visibleGeometry = [];
 		this.generateDEM = false;
 		this.profileRequests = [];
+		this.downloadRequests = [];
 		this.name = '';
 		this._visible = true;
 
@@ -142,6 +143,12 @@ export class PointCloudOctree extends PointCloudTree {
 		this.projection = geometry.projection;
 
 		this.root = this.pcoGeometry.root;
+	}
+
+	getBoxPointCloudIntersection (box, maxDepth, callback){
+		let request = new Potree.DownloadRequest(this, box, maxDepth, callback);
+		this.downloadRequests.push(request);
+		return request;
 	}
 
 	setName (name) {

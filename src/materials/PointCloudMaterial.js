@@ -121,6 +121,7 @@ export class PointCloudMaterial extends THREE.RawShaderMaterial {
 			wSourceID:			{ type: "f", value: 0 },
 			useOrthographicCamera: { type: "b", value: false },
 			clipTask:			{ type: "i", value: 1 },
+			elementMaterial:	{ type: "i", value: 1 },
 			clipMethod:			{ type: "i", value: 1 },
 			uSnapshot:			{ type: "tv", value: [] },
 			uSnapshotDepth:		{ type: "tv", value: [] },
@@ -152,7 +153,7 @@ export class PointCloudMaterial extends THREE.RawShaderMaterial {
 		this.vertexShader = Shaders['pointcloud.vs'];
 		this.fragmentShader = Shaders['pointcloud.fs'];
 
-		
+
 		this.vertexColors = THREE.VertexColors;
 	}
 
@@ -281,7 +282,7 @@ export class PointCloudMaterial extends THREE.RawShaderMaterial {
 		} else if (this._pointColorType === PointColorType.COMPOSITE) {
 			defines.push('#define color_type_composite');
 		}
-		
+
 		if(this._treeType === TreeType.OCTREE){
 			defines.push('#define tree_type_octree');
 		}else if(this._treeType === TreeType.KDTREE){
@@ -370,7 +371,7 @@ export class PointCloudMaterial extends THREE.RawShaderMaterial {
 			this.updateShaderSource();
 		}
 	}
-	
+
 	get gradient(){
 		return this._gradient;
 	}
@@ -382,7 +383,7 @@ export class PointCloudMaterial extends THREE.RawShaderMaterial {
 			this.uniforms.gradient.value = this.gradientTexture;
 		}
 	}
-	
+
 	get useOrthographicCamera() {
 		return this.uniforms.useOrthographicCamera.value;
 	}
@@ -482,6 +483,14 @@ export class PointCloudMaterial extends THREE.RawShaderMaterial {
 		this.uniforms.clipTask.value = mode;
 	}
 
+	get elementMaterial(){
+		return this.uniforms.elementMaterial.value;
+	}
+
+	set elementMaterial(mode){
+		this.uniforms.elementMaterial.value = mode;
+	}
+
 	get clipMethod(){
 		return this.uniforms.clipMethod.value;
 	}
@@ -553,7 +562,7 @@ export class PointCloudMaterial extends THREE.RawShaderMaterial {
 			this.uniforms.far.value = value;
 		}
 	}
-	
+
 	get opacity(){
 		return this.uniforms.uOpacity.value;
 	}
@@ -631,7 +640,7 @@ export class PointCloudMaterial extends THREE.RawShaderMaterial {
 	set color (value) {
 		if (!this.uniforms.uColor.value.equals(value)) {
 			this.uniforms.uColor.value.copy(value);
-			
+
 			this.dispatchEvent({
 				type: 'color_changed',
 				target: this
@@ -956,11 +965,11 @@ export class PointCloudMaterial extends THREE.RawShaderMaterial {
 
 		context.fillStyle = ctxGradient;
 		context.fill();
-		
+
 		//let texture = new THREE.Texture(canvas);
 		let texture = new THREE.CanvasTexture(canvas);
 		texture.needsUpdate = true;
-		
+
 		texture.minFilter = THREE.LinearFilter;
 		// textureImage = texture.image;
 

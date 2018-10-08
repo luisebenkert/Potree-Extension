@@ -1,5 +1,3 @@
-
-
 export class ClipVolume extends THREE.Object3D{
 
 	constructor(args){
@@ -18,6 +16,7 @@ export class ClipVolume extends THREE.Object3D{
 
 		this.clipOffset = 0.001;
 		this.clipRotOffset = 1;
+
 
 		let boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 		boxGeometry.computeBoundingBox();

@@ -12,7 +12,7 @@ import {PointCloudTree} from "../PointCloudTree.js"
 import {Profile} from "../utils/Profile.js"
 import {Measure} from "../utils/Measure.js"
 import {Annotation} from "../Annotation.js"
-import {CameraMode, ClipTask, ClipMethod} from "../defines.js"
+import {CameraMode, ClipTask, ClipMethod, ElementMaterial} from "../defines.js"
 import {ScreenBoxSelectTool} from "../utils/ScreenBoxSelectTool.js"
 import {Utils} from "../utils.js"
 
@@ -703,7 +703,7 @@ export class Sidebar{
 			$("#btnHideClippings").click((e) => {
 				this.viewer.scene.removeAllVolumes();
 			});
-		}	
+		}
 
 	}
 

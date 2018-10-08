@@ -13,6 +13,14 @@
 					<div class="infoIdentifier shortFlexBox">ID</div>
 					<input readonly disabled="true" id="vlGeneralID" class="infoField"></input><br /><br />
 				</div>
+				<div class="buttonBar">
+					<button id="btnSaveVolumeBox" class="buttonBarChild">Save Volume</button>
+					<button id="btnDeleteVolumeBox" class="buttonBarChild">Delete Volume</button>
+				</div>
+				<div id="vlDownloadPanel">
+					<button id="btndownloadAllPoints">Download All Points</button><br /><br />
+					<a id="potree_download_points_link" target="_blank"></a>
+				</div>
 			</div>
 			<div class="divider"><span>Position</span></div>
 			<div id="vlPositionInfo" class="dividerPanel">
@@ -63,18 +71,13 @@
 			<div id="vlMaterial" class="dividerPanel">
 				<select id="vlMaterialSelect">
 					<option selected value="none">None</option>
-					<option value="wood">Wood</option>
 					<option value="concrete">Concrete</option>
 					<option value="glass">Glass</option>
 					<option value="metal">Metal</option>
 					<option value="plastic">Plastic</option>
+					<option value="wood">Wood</option>
 				</select>
 			</div>
-			<div class="buttonBar">
-				<button id="btnSaveVolumeBox" class="buttonBarChild">Save Volume</button>
-				<button id="btnDeleteVolumeBox" class="buttonBarChild">Delete Volume</button>
-			</div>
-			<button id="getPointsInBox">Get Points In Box</button>
 		</div>
 	</div>
 </div>

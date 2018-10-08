@@ -1,4 +1,4 @@
-import {ClipTask,ClipMethod,CameraMode} from "../defines.js";
+import {ClipTask,ClipMethod,CameraMode,ElementMaterial} from "../defines.js";
 import {Renderer} from "../PotreeRenderer.js";
 import {PotreeRenderer} from "./PotreeRenderer.js";
 import {EDLRenderer} from "./EDLRenderer.js";
@@ -157,6 +157,8 @@ export class Viewer extends EventDispatcher {
       this.clipTask = ClipTask.HIGHLIGHT;
       this.clipMethod = ClipMethod.INSIDE_ANY;
 
+      this.elementMaterial = ElementMaterial.NONE;
+
       this.filterReturnNumberRange = [1, 7];
       this.filterNumberOfReturnsRange = [1, 7];
       this.filterGPSTimeRange = [0, Infinity];
@@ -260,7 +262,7 @@ export class Viewer extends EventDispatcher {
         });
 
         this.scene.addEventListener("volume_removed", onVolumeRemoved);
-        this.scene.addEventListener('pointcloud_added', onPointcloudAdded);        
+        this.scene.addEventListener('pointcloud_added', onPointcloudAdded);
       }
 
       { // set defaults
@@ -270,6 +272,7 @@ export class Viewer extends EventDispatcher {
         this.setEDLStrength(0.4);
         this.setClipTask(ClipTask.HIGHLIGHT);
         this.setClipMethod(ClipMethod.INSIDE_ANY);
+        this.setElementMaterial(ElementMaterial.NONE);
         this.setPointBudget(1 * 1000 * 1000);
         this.setShowBoundingBox(false);
         this.setFreeze(false);
@@ -504,6 +507,10 @@ export class Viewer extends EventDispatcher {
     return this.clipMethod;
   }
 
+  getElementMaterial() {
+    return this.elementMaterial;
+  }
+
   setClipTask(value) {
     if (this.clipTask !== value) {
 
@@ -523,6 +530,18 @@ export class Viewer extends EventDispatcher {
 
       this.dispatchEvent({
         type: "clipmethod_changed",
+        viewer: this
+      });
+    }
+  }
+
+  setElementMaterial(value) {
+    if (this.elementMaterial !== value) {
+
+      this.elementMaterial = value;
+
+      this.dispatchEvent({
+        type: "elementMaterial_changed",
         viewer: this
       });
     }
@@ -1669,6 +1688,7 @@ export class Viewer extends EventDispatcher {
         pointcloud.material.setClipBoxes(clipBoxes);
         pointcloud.material.setClipPolygons(clipPolygons, this.clippingTool.maxPolygonVertices);
         pointcloud.material.clipTask = this.clipTask;
+        pointcloud.material.elementMaterial = this.elementMaterial;
         pointcloud.material.clipMethod = this.clipMethod;
       }
     }

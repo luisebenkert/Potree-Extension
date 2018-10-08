@@ -14,6 +14,15 @@ export const ClipTask = {
 	SHOW_OUTSIDE: 3
 };
 
+export const ElementMaterial = {
+	NONE: 0,
+	CONCRETE: 1,
+	GLASS: 2,
+	METAL: 3,
+	PLASTIC: 4,
+	WOOD: 5
+}
+
 export const ClipMethod = {
 	INSIDE_ANY: 0,
 	INSIDE_ALL: 1

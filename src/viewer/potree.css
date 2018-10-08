@@ -83,6 +83,14 @@
   cursor: pointer;
 }
 
+#btndownloadAllPoints {
+  width: 100%;
+}
+
+#volumeInfo {
+  margin-bottom: 50px;
+}
+
 .buttonBar {
   display: flex;
   flex-direction: row;
@@ -91,7 +99,7 @@
   align-content: space-between;
   align-items: flex-start;
   margin-top: 1em;
-  margin-bottom: 3em;
+  margin-bottom: 1em;
 }
 
 .buttonBarChild {

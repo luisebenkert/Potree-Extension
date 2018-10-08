@@ -117,6 +117,52 @@
 				{ // Annotation with action icons
 
 					// Create title element with jquery
+					let schemes = [
+						{name: "RED", icon: `${Potree.resourcePath}/icons/gradients_spectral.png`},
+						{name: "YELLOW", icon: `${Potree.resourcePath}/icons/gradients_yellow_green.png`},
+						{name: "BLUE", icon: `${Potree.resourcePath}/icons/gradients_plasma.png`},
+						{name: "GREEN", icon: `${Potree.resourcePath}/icons/gradients_rainbow.png`},
+						{name: "REGULAR", icon: `${Potree.resourcePath}/icons/gradients_grayscale.png`},
+					];
+
+					let elTitle = $(`<span>Gradient Schemes:</span>`);
+					for(let scheme of schemes){
+						let button = $(`<img src="${scheme.icon}" class="annotation-action-icon" style="width: 2em; height: auto;"/>`);
+						button.click( () => {
+							for(let pointcloud of viewer.scene.pointclouds){
+								if (scheme.name === "REGULAR") {
+									pointcloud.material.pointColorType = Potree.PointColorType.RGB;
+									//pointcloud.material.pointColorType = Potree.PointColorType.OCTREE_DEPTH;
+								}
+								else {
+									pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+									pointcloud.material.pointColorType = Potree.PointColorType.COLOR;
+									switch (scheme.name) {
+										case "RED": pointcloud.material.color = new THREE.Color().setRGB(0.5, 0, 0); break;
+										case "YELLOW": pointcloud.material.color = new THREE.Color().setRGB(1, 1, 0); break;
+										case "BLUE": pointcloud.material.color = new THREE.Color().setRGB(0, 0, 1); break;
+										case "GREEN": pointcloud.material.color = new THREE.Color().setRGB(0, 0.5, 0); break;
+									}
+								}
+							}
+						});
+						elTitle.append(button);
+					}
+
+					// Give the annotation a meaningful string representation for the sidebar
+					elTitle.toString = () => "Gradient Color Selection";
+
+					// Same as with other annotations, except title is a jquery object this time.
+					let aActions = new Potree.Annotation({
+						position: [0, 0, 0],
+						title: elTitle,
+					});
+					sceneSG.annotations.add(aActions);
+				}
+
+				{ // Annotation with action icons
+
+					// Create title element with jquery
 					let elTitle = $(`
 						<span>
 							<img name="action_elevation" src="${Potree.resourcePath}/icons/profile.svg" class="annotation-action-icon"/>
