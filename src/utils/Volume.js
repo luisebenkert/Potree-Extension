@@ -1,4 +1,5 @@
-
+import {PointCloudOctreeNode} from "../PointCloudOctree.js";
+import {Points} from "../Points";
 import {TextSprite} from "../TextSprite.js";
 
 export class Volume extends THREE.Object3D {
@@ -56,6 +57,46 @@ export class Volume extends THREE.Object3D {
 			this._visible = value;
 
 			this.dispatchEvent({type: "visibility_changed", object: this});
+		}
+	}
+
+	getPointsInBox(pointclouds, callback = null){
+		let clipBox = new THREE.Box3();
+		let volumeBox = this;
+
+		let curPoint = new THREE.Vector3().copy(volumeBox.position);
+		//curPoint.z = -99999;
+		let width = volumeBox.scale.x,
+				length = volumeBox.scale.y,
+				height = volumeBox.scale.z
+		let maxDepth = Infinity;
+
+		clipBox.expandByPoint(curPoint);
+		clipBox.expandByPoint(curPoint.add(new THREE.Vector3(width, length, height)));
+
+		let points = new Points();
+
+		this.requests = [];
+
+		for (let pointcloud of pointclouds.filter(p => p.visible)) {
+			console.log(pointcloud);
+			let request = pointcloud.getBoxPointCloudIntersection(clipBox, maxDepth, {
+				'onProgress': (event) => {
+					console.log('working...', event.points);
+					points.add(event.points);
+				},
+				'onFinish': (event) => {
+					this.pointsBlob = points;
+					if(callback != null) {
+						callback(points);
+					}
+				},
+				'onCancel': () => {
+					console.log('Something went wrong. Please try again');
+				}
+			});
+
+			this.requests.push(request);
 		}
 	}
 

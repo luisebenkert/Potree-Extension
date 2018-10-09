@@ -1,9 +1,8 @@
 import {DBConnection} from "../../database/connection.js";
 import {ElementMaterial} from "../defines.js";
-import {PointCloudOctreeNode} from "../PointCloudOctree.js";
-import {Points} from "../Points";
 import {LASExporter} from "../exporter/LASExporter.js";
 import {CSVExporter} from "../exporter/CSVExporter.js";
+import {Volume} from "../utils/Volume.js"
 
 export class Infobar {
 
@@ -91,78 +90,30 @@ export class Infobar {
       }
     }
 
-    this.getPointsInBox = function(volumeBox){
-      let clipBox = new THREE.Box3();
-
-      console.log(volumeBox);
-
-      let curPoint = new THREE.Vector3().copy(volumeBox.position);
-      //curPoint.z = -99999;
-      let width = volumeBox.scale.x,
-          length = volumeBox.scale.y,
-          height = volumeBox.scale.z
-      let maxDepth = Infinity;
-
-      clipBox.expandByPoint(curPoint);
-      clipBox.expandByPoint(curPoint.add(new THREE.Vector3(width, length, height)));
-
-      let points = new Points();
-
-      this.requests = [];
-
-      for (let pointcloud of this.viewer.scene.pointclouds.filter(p => p.visible)) {
-        console.log(pointcloud);
-        let request = pointcloud.getBoxPointCloudIntersection(clipBox, maxDepth, {
-          'onProgress': (event) => {
-
-            console.log('working...', event.points);
-            points.add(event.points);
-            //
-
-          },
-          'onFinish': (event) => {
-            console.log(points);
-
-            /*
-            let buffer = LASExporter.toLAS(points);
-
-            let blob = new Blob([buffer], {type: "application/octet-binary"});
-            $('#potree_download_points_link').attr('href', URL.createObjectURL(blob));
-
-            */
-
-            let string = CSVExporter.toString(points);
-
-      			let blob = new Blob([string], {type: "text/string"});
-            $('#potree_download_points_link').html('The file is ready. Download now.')
-            $('#potree_download_points_link').attr('href', URL.createObjectURL(blob));
-
-            console.log('finished');
-
-          },
-          'onCancel': () => {
-
-          }
-        });
-
-        this.requests.push(request);
-      }
-    }
-
-    this.eventFire = function(el, etype){
-      if (el.fireEvent) {
-        el.fireEvent('on' + etype);
-      } else {
-        var evObj = document.createEvent('Events');
-        evObj.initEvent(etype, true, false);
-        el.dispatchEvent(evObj);
-      }
-    }
-
     this.getPoints = function(volumeBox) {
-      let pc = this.viewer.scene.pointclouds[0];
-      let rootNode = this.viewer.scene.pointclouds[0].root;
-      this.getPointsInBox(volumeBox);
+      if(volumeBox.pointsBlob != undefined || volumeBox.pointsBlob != null){
+        console.log('already exists');
+        //print file again
+      }
+      else {
+        volumeBox.getPointsInBox(this.viewer.scene.pointclouds, this.downloadAllPoints);        
+      }
+    }
+
+    this.downloadAllPoints = function(points, format = 'csv') {
+      let blob;
+      switch (format){
+        case 'csv':
+          let buffer = LASExporter.toLAS(points);
+          blob = new Blob([buffer], {type: "application/octet-binary"});
+          break;
+        case 'las':
+          let string = CSVExporter.toString(points);
+          blob = new Blob([string], {type: "text/string"});
+          break;
+      }
+      $('#potree_download_points_link').html('The file is ready. Click here to download.')
+      $('#potree_download_points_link').attr('href', URL.createObjectURL(blob));
     }
 
     this.initVolumeInfo = function(volumeBox) {

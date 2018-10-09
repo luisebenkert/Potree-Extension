@@ -9,7 +9,7 @@ export class VolumeTool extends EventDispatcher{
 		this.viewer = viewer;
 		this.renderer = viewer.renderer;
 
-		this.getVolumeType = (string) => {			
+		this.getVolumeType = (string) => {
 			switch (string) {
 				case 'SphereVolume': return SphereVolume;
 				default: return BoxVolume;
