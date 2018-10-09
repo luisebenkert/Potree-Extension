@@ -99,7 +99,7 @@
 
 #potree_download_points_link {
   display: none;
-  padding: 0;  
+  padding: 0;
 }
 
 .buttonBar {
@@ -110,6 +110,10 @@
   align-content: space-between;
   align-items: flex-start;
   margin-top: 1em;
+}
+
+.fixedWidthButton {
+  width: 100px;
 }
 
 .buttonBarChild {

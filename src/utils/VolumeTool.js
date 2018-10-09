@@ -166,11 +166,21 @@ export class VolumeTool extends EventDispatcher{
 		}
 
 		let select = (e) => {
-			this.viewer.onVolumeSelected(e);
+			if(e.target._clip === true ){
+				this.viewer.onClipVolumeSelected(e);
+			}
+			else {
+				this.viewer.onVolumeSelected(e);
+			}
 		}
 
 		let deselect = (e) => {
-			this.viewer.onVolumeDeselected(e);
+			if(e.target._clip === true ){
+				this.viewer.onClipVolumeDeselected(e);
+			}
+			else {
+				this.viewer.onVolumeDeselected(e);
+			}
 		}
 
 		volume.addEventListener('drag', drag);

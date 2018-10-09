@@ -62,10 +62,6 @@
 		<h3 id="menu_tools"><span data-i18n="tb.tools_opt"></span></h3>
 		<div class="pv-menu-list">
 
-			<div class="divider" style="padding: 10px 0px 15px 0px"><span>Annotation</span></div>
-
-			<li id="annotation_tools"></li>
-
 			<div class="divider" style="padding: 10px 0px 15px 0px"><span>Measurement</span></div>
 
 			<li id="tools"></li>
@@ -90,10 +86,14 @@
 				</selectgroup>
 			</li>
 
-			<button type="button" id="btnShowClippings">Show All Clippings</button>
-			<button type="button" id="btnHideClippings">Hide All Clippings</button>
-			<button type="button" id="btnSaveClippings">Save All Clippings</button>
-			<button type="button" id="btnDeleteClippings">Delete All Clippings</button>
+			<div class="buttonBar">
+				<button type="button" id="btnShowClippings" class="buttonBarChild">Show All Clippings</button>
+				<button type="button" id="btnHideClippings" class="buttonBarChild">Hide All Clippings</button>
+			</div>
+			<div class="buttonBar">
+				<button type="button" id="btnSaveClippings" class="buttonBarChild">Save All Clippings</button>
+				<button type="button" id="btnDeleteClippings" class="buttonBarChild">Delete All Clippings</button>
+			</div>
 
 			<div class="divider" style="padding: 10px 0px 15px 0px"><span>Navigation</span></div>
 

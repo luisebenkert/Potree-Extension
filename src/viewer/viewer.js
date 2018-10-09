@@ -1092,16 +1092,23 @@ export class Viewer extends EventDispatcher {
     this.infobar.updateVolumeInfo(e.target);
   }
 
-  onVolumeSelected(e) {
+  onClipVolumeSelected(e) {
     this.toggleInfobar();
     this.infobar.initVolumeInfo(e.target);
   }
 
-  onVolumeDeselected(e) {
+  onClipVolumeDeselected(e) {
     this.toggleInfobar();
     this.infobar.cancelVolumeInfo(e.target);
   }
 
+  onVolumeSelected(e) {
+
+  }
+
+  onVolumeDeselected(e) {
+  
+  }
 
   loadGUI(callback) {
 
