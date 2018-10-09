@@ -84,11 +84,22 @@
 }
 
 #btndownloadAllPoints {
-  width: 100%;
+  flex: 1;
+}
+
+#btndownloadFormat {
+  width: auto;
+  height: 21.5px;
+  padding: 0;
 }
 
 #volumeInfo {
   margin-bottom: 50px;
+}
+
+#potree_download_points_link {
+  display: none;
+  padding: 0;  
 }
 
 .buttonBar {
@@ -99,7 +110,6 @@
   align-content: space-between;
   align-items: flex-start;
   margin-top: 1em;
-  margin-bottom: 1em;
 }
 
 .buttonBarChild {

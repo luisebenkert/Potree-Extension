@@ -79,13 +79,13 @@ export class Volume extends THREE.Object3D {
 		this.requests = [];
 
 		for (let pointcloud of pointclouds.filter(p => p.visible)) {
-			console.log(pointcloud);
 			let request = pointcloud.getBoxPointCloudIntersection(clipBox, maxDepth, {
 				'onProgress': (event) => {
 					console.log('working...', event.points);
 					points.add(event.points);
 				},
 				'onFinish': (event) => {
+					console.log('Success. The file is ready for download.');
 					this.pointsBlob = points;
 					if(callback != null) {
 						callback(points);

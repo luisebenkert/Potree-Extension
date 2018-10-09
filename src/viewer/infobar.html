@@ -17,10 +17,26 @@
 					<button id="btnSaveVolumeBox" class="buttonBarChild">Save Volume</button>
 					<button id="btnDeleteVolumeBox" class="buttonBarChild">Delete Volume</button>
 				</div>
-				<div id="vlDownloadPanel">
+				<div class="buttonBar">
 					<button id="btndownloadAllPoints">Download All Points</button><br /><br />
-					<a id="potree_download_points_link" target="_blank"></a>
+					<select id="btndownloadFormat">
+						<option value="csv" selected>CSV</option>
+						<option value="las">LAS</option>
+					</select>
 				</div>
+				<a id="potree_download_points_link" target="_blank">The file is ready. Click here to download.</a>
+			</div>
+			<div class="divider"><span>Material</span></div>
+			<div id="vlMaterial" class="dividerPanel">
+				<select id="vlMaterialSelect">
+					<option selected value="none">None</option>
+					<option value="concrete">Concrete</option>
+					<option value="glass">Glass</option>
+					<option value="metal">Metal</option>
+					<option value="plastic">Plastic</option>
+					<option value="wood">Wood</option>
+				</select>
+				<br /><br />
 			</div>
 			<div class="divider"><span>Position</span></div>
 			<div id="vlPositionInfo" class="dividerPanel">
@@ -66,17 +82,6 @@
 					<div class="infoIdentifier">Z</div>
 					<input id="vlRotationZ" class="infoField"></input><br /><br />
 				</div>
-			</div>
-			<div class="divider"><span>Material</span></div>
-			<div id="vlMaterial" class="dividerPanel">
-				<select id="vlMaterialSelect">
-					<option selected value="none">None</option>
-					<option value="concrete">Concrete</option>
-					<option value="glass">Glass</option>
-					<option value="metal">Metal</option>
-					<option value="plastic">Plastic</option>
-					<option value="wood">Wood</option>
-				</select>
 			</div>
 		</div>
 	</div>

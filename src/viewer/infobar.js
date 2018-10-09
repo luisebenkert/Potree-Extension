@@ -92,28 +92,40 @@ export class Infobar {
 
     this.getPoints = function(volumeBox) {
       if(volumeBox.pointsBlob != undefined || volumeBox.pointsBlob != null){
-        console.log('already exists');
-        //print file again
+        console.log('The file already exists.');
+        $('#btndownloadFormat').prop("disabled", false);
       }
       else {
-        volumeBox.getPointsInBox(this.viewer.scene.pointclouds, this.downloadAllPoints);        
+        volumeBox.getPointsInBox(this.viewer.scene.pointclouds, this.downloadAllPoints);
       }
     }
 
-    this.downloadAllPoints = function(points, format = 'csv') {
+
+    this.downloadAllPoints = function(points) {
       let blob;
+      let format = $('#btndownloadFormat').find(":selected").val();
       switch (format){
         case 'csv':
-          let buffer = LASExporter.toLAS(points);
-          blob = new Blob([buffer], {type: "application/octet-binary"});
-          break;
-        case 'las':
           let string = CSVExporter.toString(points);
           blob = new Blob([string], {type: "text/string"});
           break;
+        case 'las':
+          let buffer = LASExporter.toLAS(points);
+          blob = new Blob([buffer], {type: "application/octet-binary"});
+          break;
       }
-      $('#potree_download_points_link').html('The file is ready. Click here to download.')
       $('#potree_download_points_link').attr('href', URL.createObjectURL(blob));
+      $('#potree_download_points_link').show();
+      $('#btndownloadFormat').prop("disabled", false);
+    }
+
+    this.disableFormatDropdown = function() {
+      $('#btndownloadFormat').prop("disabled", true);
+    }
+
+    this.resetDownloadLink = function(volumeBox){
+      volumeBox.pointsBlob = null;
+      $('#potree_download_points_link').hide();
     }
 
     this.initVolumeInfo = function(volumeBox) {
@@ -137,10 +149,14 @@ export class Infobar {
         self.viewer.scene.deleteVolumeBox(volumeBox)
       });
       $('#btndownloadAllPoints').click(function() {
+        self.disableFormatDropdown();
         self.getPoints(volumeBox);
       });
       $('#vlMaterialSelect').bind('change', function() {
-        self.saveMaterial(volumeBox)
+        self.saveMaterial(volumeBox);
+      });
+      $('#btndownloadFormat').bind('change', function() {
+        self.resetDownloadLink(volumeBox);
       });
       this.updateVolumeInfo(volumeBox);
     }
@@ -159,9 +175,11 @@ export class Infobar {
       $('#btnDeleteVolumeBox').unbind('click');
       $('#vlMaterialSelect').unbind('change');
       $('#btndownloadAllPoints').unbind('click');
+      $('#btndownloadFormat').unbind('change');
     }
 
     this.updateVolumeInfo = function(volumeBox) {
+      this.resetDownloadLink(volumeBox);
       $('#vlGeneralType').val(volumeBox.type);
       $('#vlGeneralID').val(volumeBox.uuid);
       $('#vlPositionX').val(volumeBox.position.x);
@@ -176,6 +194,7 @@ export class Infobar {
       $('#vlMaterialSelect').val(this.getMaterialName(volumeBox.material_id));
     }
   }
+
 
   createToolIcon(icon, title, callback) {
     let element = $(`
