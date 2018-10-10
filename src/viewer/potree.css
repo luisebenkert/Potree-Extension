@@ -8,6 +8,10 @@
 
 /* As hex codes */
 
+##################################################
+################## COLOR  CODES ##################
+##################################################
+
 .color-primary-0 {
   color: #19282C
 }
@@ -64,19 +68,24 @@
   --color-2: rgba( 57, 71, 75, 1);
   --color-3: rgba( 45, 109, 130, 1);
   --color-4: rgba( 16, 143, 185, 1);
-  --bg-color: var(--color-0);
-  --bg-color-2: rgb(60, 80, 85);
+  --bg-color: lightgray;
+  --bg-color-2: darkgray;
+  --bg-color-3: #505050;
   --bg-light-color: rgba( 48, 61, 65, 1);
   --bg-dark-color: rgba( 24, 31, 33, 1);
   --bg-hover-color: var(--color-2);
-  --font-color: #9AA1A4;
-  --font-color-2: #ddd;
-  --font-color: #cccccc;
+  --font-color-light: white;
+  --font-color-dark: black;
+  --font-color-link: var(--color-3);
   --border-color: black;
   --measurement-detail-node-bg-light: var(--color-1);
   --measurement-detail-node-bg-dark: var(--color-2);
   --measurement-detail-area-bg-color: #eee;
 }
+
+#############################################
+################## INFOBAR ##################
+#############################################
 
 #vlMaterialSelect {
   width: 100%;
@@ -116,10 +125,11 @@
   width: 100px;
 }
 
-.buttonBarChild {
+.buttonBarChild {  
   order: 0;
   flex: 1 1 auto;
   cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .infobar {
@@ -131,11 +141,15 @@
   padding-top: 10px;
   border-right: 1px solid black !important;
   overflow: hidden;
-  color: var(--font-color);
+  color: var(--font-color-dark);
   background-color: var(--bg-color);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: .9em;
 }
+
+####################################################
+################## GENERAL PANELS ##################
+####################################################
 
 .flexBox {
   display: -ms-flexbox;
@@ -186,8 +200,8 @@
   -webkit-align-self: auto;
   -ms-flex-item-align: auto;
   align-self: auto;
-  background-color: var(--font-color);
-  color: black;
+  background-color: var(--bg-color-light);
+  color: var(--font-color-dark);;
   box-sizing: border-box;
 }
 
@@ -206,11 +220,70 @@
 }
 
 #sidebar_root {
-  color: var(--font-color);
+  color: var(--font-color-dark);
   background-color: var(--bg-color);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1em;
 }
+
+#################################################
+################## UPLOAD PAGE ##################
+#################################################
+
+#uploadPageBody {
+  font-size: 2em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#uploadPageText {
+  font-size: 1em;
+  width: 70%;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 1.5em;
+}
+
+#uploadPageTitle{
+  font-size: 3em;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: .5em;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+#uploadButtonBar {
+  display: flex;
+  flex-direction: column;
+}
+
+.uploadButton {
+  width: auto;
+  flex: 1;
+  margin: 7px;
+  font-size: 1.2em;
+  font-family: 'Montserrat', sans-serif;
+  border: 0px;
+  padding: 10px;
+  background-color: var(--bg-color);
+}
+
+.uploadButton:hover {
+  cursor: pointer;
+  background-color: var(--bg-color-3);
+  color: var(--font-color-light);
+  border: 0px;
+}
+
+############################################
+################## POTREE ##################
+############################################
 
 .potree_failpage {
   width: 100%;
@@ -228,7 +301,6 @@
 .potree_info_text {
   color: white;
   font-weight: bold;
-  text-shadow: 1px 1px 1px black, 1px -1px 1px black, -1px 1px 1px black, -1px -1px 1px black;
 }
 
 .potree_message {
@@ -237,8 +309,8 @@
   padding: 5px;
   margin: 5px;
   border-radius: 4px;
-  color: var(--font-color);
-  font-family: Arial;
+  color: var(--font-color-dark);
+  font-family: 'Montserrat', sans-serif;
   opacity: 0.8;
   border: 1px solid black;
   display: flex;
@@ -256,6 +328,45 @@
   transform: translateX(-50%);
   text-align: center;
   z-index: 1000;
+}
+
+#############################################
+################## SIDEBAR ##################
+#############################################
+
+#sidebar_title {
+  flex: 1;
+  padding: 0;
+}
+
+#sidebar_header_buttons {
+  flex: 1;
+  text-align: right;
+}
+
+.buttonIcon {
+  background: transparent;
+  border: 0px;
+  outline: none;
+  color: var(--bg-color-2);
+  cursor: pointer;
+  width: 30px;
+  font-size: 1.5em;
+  line-height: 50px;
+}
+
+.buttonIcon:hover{
+  background: transparent;
+  color: var(--bg-color-3);
+  border: 0px;
+  outline:none;
+}
+
+#sidebar_header {
+  width: 270px;
+  height: 50px;
+  display: flex;
+  padding: 0 1em 0 1em;
 }
 
 #potree_sidebar_container {
@@ -278,7 +389,7 @@
 }
 
 #potree_sidebar_container a {
-  color: #8Aa1c4;
+  color: var(--font-color-link);
 }
 
 .potree_menu_toggle {
@@ -333,6 +444,10 @@ a:hover, a:visited, a:link, a:active {
   text-decoration: none;
 }
 
+#################################################
+################## ANNOTATIONS ##################
+#################################################
+
 .annotation {
   position: absolute;
   padding: 10px;
@@ -367,7 +482,7 @@ a:hover, a:visited, a:link, a:active {
   vertical-align: middle;
   line-height: 1.5em;
   text-align: center;
-  font-family: Arial;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   cursor: pointer;
 }
@@ -411,7 +526,7 @@ a:hover, a:visited, a:link, a:active {
   z-index: 100;
   vertical-align: middle;
   line-height: 1.5em;
-  font-family: Arial;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   cursor: pointer;
   white-space: nowrap;
@@ -448,6 +563,10 @@ a:hover, a:visited, a:link, a:active {
   opacity: 0.5;
 }
 
+############################################
+################## VIEWER ##################
+############################################
+
 canvas {
   width: 100%;
   height: 100%
@@ -464,19 +583,19 @@ body {
 
 .axis {
   font: 10px sans-serif;
-  color: var(--font-color);
+  color: var(--font-color-dark);
 }
 
 .axis path {
   fill: rgba(255, 255, 255, 0.5);
-  stroke: var(--font-color);
+  stroke: var(--font-color-dark);
   shape-rendering: crispEdges;
   opacity: 0.7;
 }
 
 .axis line {
   fill: rgba(255, 255, 255, 0.5);
-  stroke: var(--font-color);
+  stroke: var(--font-color-dark);
   shape-rendering: crispEdges;
   opacity: 0.1;
 }
@@ -588,7 +707,6 @@ body {
 
 .button-icon:hover {
   /*background-color:	#09181C;*/
-  filter: drop-shadow(0px 0px 4px white);
 }
 
 .ui-widget-content {
@@ -598,18 +716,16 @@ body {
 .accordion>h3 {
   background-color: var(--bg-color-2) !important;
   background: #f6f6f6 50% 50% repeat-x;
-  border: 1px solid black;
-  color: var(--font-color-2);
+  color: var(--font-color-dark);
   cursor: pointer;
   margin: 2px 0 0 0;
   padding: 4px 10px 4px 30px;
-  box-shadow: 0px 3px 3px #111;
-  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   font-size: 1em;
 }
 
 .accordion>h3:hover {
-  filter: brightness(125%);
+  background-color: var(--bg-color-3) !important;
+  color: var(--font-color-light);;
 }
 
 .accordion-content {
@@ -629,14 +745,17 @@ body {
   transition: top .35s, left .35s, bottom .35s, right .35s, width .35s;
 }
 
+#############################################
+################## PROFILE ##################
+#############################################
+
 #profile_window {
   background-color: var(--bg-color);
 }
 
 #profile_titlebar {
   background-color: var(--bg-color-2);
-  color: var(--font-color-2);
-  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  color: var(--font-color-dark);
   font-size: 1em;
   font-weight: bold;
 }
@@ -829,7 +948,7 @@ body {
   color: black;
   font-weight: bold;
   font-size: 1.2em;
-  font-family: arial;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .zs_handle:hover {

@@ -344,6 +344,7 @@ export class Viewer extends EventDispatcher {
   // Viewer API
   // ------------------------------------------------------------------------------------
 
+
   setScene(scene) {
     if (scene === this.scene) {
       return;
@@ -1080,6 +1081,7 @@ export class Viewer extends EventDispatcher {
     }
   };
 
+
   onGUILoaded(callback) {
     if (this.guiLoaded) {
       callback();
@@ -1107,7 +1109,7 @@ export class Viewer extends EventDispatcher {
   }
 
   onVolumeDeselected(e) {
-  
+
   }
 
   loadGUI(callback) {

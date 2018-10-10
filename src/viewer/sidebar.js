@@ -47,6 +47,7 @@ export class Sidebar{
 
 	init(){
 
+		this.initFileLoader();
 		this.initAccordion();
 		this.initAppearance();
 		this.initToolbar();
@@ -58,6 +59,12 @@ export class Sidebar{
 
 		$('#potree_version_number').html(Potree.version.major + "." + Potree.version.minor + Potree.version.suffix);
 		$('.perfect_scrollbar').perfectScrollbar();
+	}
+
+	initFileLoader(){
+		$("#btnPointCloudUpload").click((e) => {
+			window.location.href = "./index.html";
+		});
 	}
 
 	initToolbar(){
@@ -233,8 +240,8 @@ export class Sidebar{
 
 			elExport.append(`
 				Export: <br>
-				<a href="#" download="measure.json"><img name="geojson_export_button" src="${geoJSONIcon}" class="button-icon" style="height: 24px" /></a>
-				<a href="#" download="measure.dxf"><img name="dxf_export_button" src="${dxfIcon}" class="button-icon" style="height: 24px" /></a>
+				<a href="#" download="measure.json">JSON</a>
+				<a href="#" download="measure.dxf">DXF</a>
 			`);
 
 			let elDownloadJSON = elExport.find("img[name=geojson_export_button]").parent();

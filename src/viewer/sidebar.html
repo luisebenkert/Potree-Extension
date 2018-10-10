@@ -1,18 +1,15 @@
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div id="sidebar_root"
 	class="perfect_scrollbar navmenu navmenu-default navmenu-fixed-left unselectable"
 	style="position: absolute; min-height: 100%; height: 100%; width: calc(100% - 1px); border-right: 1px solid black !important; overflow: hidden">
 	<div id="sidebar_header">
-		<span id="potree_branding" class="potree_sidebar_brand" style="display: flex; flex-direction: row">
-			<a href="http://potree.org" target="_blank">potree.org</a>
-			<span style="margin: 0px 3px; color: #9AA1A4"> - </span>
-			<a href="https://github.com/potree/potree" target="_blank">github</a>
-			<span style="margin: 0px 3px; color: #9AA1A4"> - </span>
-			<a href="https://twitter.com/m_schuetz" target="_blank">twitter</a>
-			<span style="flex-grow: 1"></span>
-			<span id="potree_version_number" style="color: #9AA1A4; font-size: 80%; font-weight: 100"></span>
-		</span>
-		<div id="potree_languages" style="font-family:arial;"></div>
+		<div id="sidebar_title">
+			<h2 href="http://potree.org" target="_blank">.potree</a>
+		</div>
+		<div id="sidebar_header_buttons">
+			<button id="btnPointCloudUpload" class="buttonIcon"><i class="fa fa-upload"></i></button>
+			<button id="btnPotreeInfo" class="buttonIcon"><i class="fa fa-question-circle"></i></button>
+		</div>
 	</div>
 	<div>
 	<div id="potree_menu" class="accordion">
@@ -34,11 +31,10 @@
 
 				<li>
 					<selectgroup id="background_options">
-						<option id="background_options_skybox" value="skybox">Skybox</option>
 						<option id="background_options_gradient" value="gradient">Gradient</option>
+						<option id="background_options_skybox" value="skybox">Skybox</option>
 						<option id="background_options_black" value="black">Black</option>
 						<option id="background_options_white" value="white">White</option>
-						<option id="background_options_none" value="null">None</option>
 					</selectgroup>
 				</li>
 
@@ -208,8 +204,7 @@
 						<li><a target="_blank" href="http://www.danielgm.net/cc/">Cloud Compare</a></li>
 						<li><a target="_blank" href="http://sitn.ne.ch/">sitn</a></li>
 					</ul>
-				</li>
-
+				</li>			
 			</ul>
 		</div>
 	</div>
