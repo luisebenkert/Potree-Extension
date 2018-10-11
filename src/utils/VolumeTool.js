@@ -166,7 +166,8 @@ export class VolumeTool extends EventDispatcher{
 		}
 
 		let select = (e) => {
-			if(e.target._clip === true ){
+			console.log(e.target);
+			if(e.target._clip === true){
 				this.viewer.onClipVolumeSelected(e);
 			}
 			else {

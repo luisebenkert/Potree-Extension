@@ -88,48 +88,32 @@
 #############################################
 
 #vlMaterialSelect {
-  width: 100%;
+  width: 26px !important;
   cursor: pointer;
 }
 
 #btndownloadAllPoints {
   flex: 1;
+  font-family: 'Montserrat', sans-serif;
 }
 
 #btndownloadFormat {
   width: auto;
-  height: 21.5px;
+  height: 22.5px;
   padding: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 #volumeInfo {
   margin-bottom: 50px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 #potree_download_points_link {
   display: none;
   padding: 0;
-}
-
-.buttonBar {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-content: space-between;
-  align-items: flex-start;
-  margin-top: 1em;
-}
-
-.fixedWidthButton {
-  width: 100px;
-}
-
-.buttonBarChild {  
-  order: 0;
-  flex: 1 1 auto;
-  cursor: pointer;
   font-family: 'Montserrat', sans-serif;
+  color: var(--color-4);
 }
 
 .infobar {
@@ -145,32 +129,6 @@
   background-color: var(--bg-color);
   font-family: 'Montserrat', sans-serif;
   font-size: .9em;
-}
-
-####################################################
-################## GENERAL PANELS ##################
-####################################################
-
-.flexBox {
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-content: stretch;
-  -ms-flex-line-pack: stretch;
-  align-content: stretch;
-  -webkit-align-items: flex-start;
-  -ms-flex-align: start;
-  align-items: flex-start;
-  margin-bottom: 10px;
 }
 
 .infoIdentifier {
@@ -200,13 +158,13 @@
   -webkit-align-self: auto;
   -ms-flex-item-align: auto;
   align-self: auto;
-  background-color: var(--bg-color-light);
+  background-color: var(--font-color-light);
   color: var(--font-color-dark);;
   box-sizing: border-box;
 }
 
 .shortFlexBox {
-  width: 50px;
+  width: 45px;
 }
 
 .infobar_panel {
@@ -215,15 +173,33 @@
 }
 
 .dividerPanel {
+  width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.flexBox {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
 
 #sidebar_root {
   color: var(--font-color-dark);
   background-color: var(--bg-color);
   font-family: 'Montserrat', sans-serif;
   font-size: 1em;
+  position: absolute;
+  min-height: 100%;
+  height: 100%;
+  width: calc(100% - 1px);
+  border-right: 1px solid black !important;
+  overflow: hidden;
 }
 
 #################################################
@@ -272,6 +248,7 @@
   border: 0px;
   padding: 10px;
   background-color: var(--bg-color);
+  outline:
 }
 
 .uploadButton:hover {
@@ -342,6 +319,16 @@
 #sidebar_header_buttons {
   flex: 1;
   text-align: right;
+}
+
+.icon_toolbar img {
+
+}
+
+
+.icon_toolbar img:hover {
+  cursor: pointer;
+  filter: drop-shadow(2px 2px 5px var(--bg-dark-color));
 }
 
 .buttonIcon {
@@ -651,6 +638,18 @@ body {
   overflow: hidden;
 }
 
+.pv-menu-list li {
+  margin-bottom: 1em;
+}
+
+#jstree_scene li {
+  margin-bottom: 0em;
+}
+
+.pv-menu-ul-small-paddings li{
+  margin-bottom: 0em;
+}
+
 .pv-menu-list>* {
   margin: 4px 20px;
 }
@@ -719,7 +718,7 @@ body {
   color: var(--font-color-dark);
   cursor: pointer;
   margin: 2px 0 0 0;
-  padding: 4px 10px 4px 30px;
+  padding: 4px 10px 4px 10px;
   font-size: 1em;
 }
 
@@ -801,8 +800,8 @@ body {
   letter-spacing: 1px;
   margin-left: 0px;
   margin-right: 0px;
-  margin-top: 1px;
-  margin-bottom: 1px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   padding: 1px !important;
 }
 

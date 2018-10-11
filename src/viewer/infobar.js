@@ -103,6 +103,8 @@ export class Infobar {
 
     this.downloadAllPoints = function(points) {
       let blob;
+      console.log(points.count);
+      console.log(points.length);
       let format = $('#btndownloadFormat').find(":selected").val();
       switch (format){
         case 'csv':

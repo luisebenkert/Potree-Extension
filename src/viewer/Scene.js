@@ -167,13 +167,22 @@ export class Scene extends EventDispatcher{
 	}
 
 	saveAllVolumes () {
+		if(this.volumes.length === 0) {
+			console.log('There are no volumes to be saved');
+			// TODO: send message in viewer
+			return;
+		}
 		for (var i = 0; i < this.volumes.length; i++) {
 			this.saveVolumeBox(this.volumes[i]);
 		}
 	}
 
 	deleteAllVolumes () {
-		if (confirm('Are you sure you want to permanentely delete all volume boxes?')) {
+		if(this.volumes.length === 0) {
+			console.log('There are no volumes to be deleted');
+			// TODO: send message in viewer
+		}
+		else if (confirm('Are you sure you want to permanentely delete all volume boxes?')) {
 			while (this.volumes.length != 0) {
 				this.deleteVolumeBox(this.volumes[0], false);
 			}
@@ -266,7 +275,7 @@ export class Scene extends EventDispatcher{
 		}
 	}
 
-	removeAllMeasurements () {
+	removeAllMeasurements () {	
 		while (this.measurements.length > 0) {
 			this.removeMeasurement(this.measurements[0]);
 		}

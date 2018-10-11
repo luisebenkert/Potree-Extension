@@ -1,7 +1,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div id="sidebar_root"
-	class="perfect_scrollbar navmenu navmenu-default navmenu-fixed-left unselectable"
-	style="position: absolute; min-height: 100%; height: 100%; width: calc(100% - 1px); border-right: 1px solid black !important; overflow: hidden">
+<div id="sidebar_root" class="perfect_scrollbar navmenu navmenu-default navmenu-fixed-left unselectable">
 	<div id="sidebar_header">
 		<div id="sidebar_title">
 			<h2 href="http://potree.org" target="_blank">.potree</a>
@@ -60,11 +58,11 @@
 
 			<div class="divider" style="padding: 10px 0px 15px 0px"><span>Measurement</span></div>
 
-			<li id="tools"></li>
+			<li id="tools" class="icon_toolbar"></li>
 
-			<div class="divider" style="padding: 10px 0px 15px 0px"><span>Clipping</span></div>
+			<div class="divider" style="padding: 10px 0px 15px 0px"><span>Selection</span></div>
 
-			<li id="clipping_tools"></li>
+			<li id="selection_tools" class="icon_toolbar"></li>
 
 			<li>
 				<selectgroup id="cliptask_options">
@@ -81,15 +79,6 @@
 					<option id="clipmethod_options_all" value="INSIDE_ALL">Inside All</option>
 				</selectgroup>
 			</li>
-
-			<div class="buttonBar">
-				<button type="button" id="btnShowClippings" class="buttonBarChild">Show All Clippings</button>
-				<button type="button" id="btnHideClippings" class="buttonBarChild">Hide All Clippings</button>
-			</div>
-			<div class="buttonBar">
-				<button type="button" id="btnSaveClippings" class="buttonBarChild">Save All Clippings</button>
-				<button type="button" id="btnDeleteClippings" class="buttonBarChild">Delete All Clippings</button>
-			</div>
 
 			<div class="divider" style="padding: 10px 0px 15px 0px"><span>Navigation</span></div>
 
@@ -119,7 +108,7 @@
 
 			<div class="divider" style="padding: 10px 0px 15px 0px"><span>Classification</span></div>
 
-			<ul id="classificationList" class="pv-menu-list"></ul>
+			<ul id="classificationList" class="pv-menu-list pv-menu-ul-small-paddings"></ul>
 
 			<div class="divider" style="padding: 10px 0px 15px 0px"><span>Returns</span></div>
 
@@ -169,9 +158,9 @@
 				<a href="https://github.com/potree/potree" target="_blank">(github)</a>
 				</li>
 				<li>Author: <a href="mailto:mschuetz@potree.org">Markus Sch&uuml;tz</a></li>
-				<li>License: <a target="_blank" href="http://potree.org/wp/potree_license/">FreeBSD (2-clause BSD)<a></li>
+				<li>License: <a target="_blank" href="http://potree.org/wp/potree_license/">FreeBSD (2-clause BSD)</a></li>
 				<li>Libraries:
-					<ul>
+					<ul class="pv-menu-ul-small-paddings">
 						<li><a target="_blank" href="http://threejs.org/">three.js</a></li>
 						<li><a target="_blank" href="https://jquery.com/">Jquery</a></li>
 						<li><a target="_blank" href="http://www.laszip.org/">laszip</a></li>
@@ -183,7 +172,7 @@
 					</ul>
 				</li>
 				<li>Donators:
-					<ul>
+					<ul class="pv-menu-ul-small-paddings">
 						<li><a target="_blank" href="http://rapidlasso.com/">rapidlasso</a></li>
 						<li><a target="_blank" href="https://georepublic.info/en/">georepublic</a></li>
 						<li><a target="_blank" href="http://sitn.ne.ch/">sitn</a></li>
@@ -193,7 +182,7 @@
 					</ul>
 				</li>
 				<li>Credits:
-					<ul>
+					<ul class="pv-menu-ul-small-paddings">
 						<li><a target="_blank" href="https://www.cg.tuwien.ac.at/staff/MichaelWimmer.html">Michael Wimmer</a> &
 							<a target="_blank" href="https://www.cg.tuwien.ac.at/staff/ClausScheiblauer.html">Claus Scheiblauer</a></li>
 						<li><a target="_blank" href="https://www.cg.tuwien.ac.at/">TU Wien, Insitute of Computer Graphics and Algorithms</a></li>
@@ -204,7 +193,7 @@
 						<li><a target="_blank" href="http://www.danielgm.net/cc/">Cloud Compare</a></li>
 						<li><a target="_blank" href="http://sitn.ne.ch/">sitn</a></li>
 					</ul>
-				</li>			
+				</li>
 			</ul>
 		</div>
 	</div>

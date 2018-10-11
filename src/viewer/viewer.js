@@ -262,7 +262,7 @@ export class Viewer extends EventDispatcher {
         });
 
         this.scene.addEventListener("volume_removed", onVolumeRemoved);
-        this.scene.addEventListener('pointcloud_added', onPointcloudAdded);
+        this.scene.addEventListener('pointcloud_added', onPointcloudAdded);        
       }
 
       { // set defaults

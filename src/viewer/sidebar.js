@@ -32,10 +32,11 @@ export class Sidebar{
 		this.volumeTool = new VolumeTool(this.viewer);
 	}
 
-	createToolIcon(icon, title, callback){
+	createToolIcon(id, icon, title, callback){
 		let element = $(`
 			<img src="${icon}"
-				style="width: 32px; height: 32px"
+				id="${id}"
+				style="width: 30px; height: 30px"
 				class="button-icon"
 				data-i18n="${title}" />
 		`);
@@ -54,7 +55,7 @@ export class Sidebar{
 		this.initScene();
 		this.initNavigation();
 		this.initFilters();
-		this.initClippingTool();
+		this.initSelectionTool();
 		this.initSettings();
 
 		$('#potree_version_number').html(Potree.version.major + "." + Potree.version.minor + Potree.version.suffix);
@@ -72,7 +73,8 @@ export class Sidebar{
 		// ANGLE
 		let elToolbar = $('#tools');
 		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/angle.png',
+			"toolbar_angle_icon",
+			Potree.resourcePath + '/icons/simple/angle.svg',
 			'[title]tt.angle_measurement',
 			() => {
 				$('#menu_measurements').next().slideDown();
@@ -93,7 +95,8 @@ export class Sidebar{
 
 		// POINT
 		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/point.svg',
+			"toolbar_point_icon",
+			Potree.resourcePath + '/icons/simple/point.svg',
 			'[title]tt.point_measurement',
 			() => {
 				$('#menu_measurements').next().slideDown();
@@ -115,7 +118,8 @@ export class Sidebar{
 
 		// DISTANCE
 		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/distance.svg',
+			"toolbar_distance_icon",
+			Potree.resourcePath + '/icons/simple/distance.svg',
 			'[title]tt.distance_measurement',
 			() => {
 				$('#menu_measurements').next().slideDown();
@@ -134,7 +138,8 @@ export class Sidebar{
 
 		// HEIGHT
 		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/height.svg',
+			"toolbar_height_icon",
+			Potree.resourcePath + '/icons/simple/height.svg',
 			'[title]tt.height_measurement',
 			() => {
 				$('#menu_measurements').next().slideDown();
@@ -155,7 +160,8 @@ export class Sidebar{
 
 		// AREA
 		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/area.svg',
+			"toolbar_area_icon",
+			Potree.resourcePath + '/icons/simple/area.svg',
 			'[title]tt.area_measurement',
 			() => {
 				$('#menu_measurements').next().slideDown();
@@ -174,7 +180,8 @@ export class Sidebar{
 
 		// VOLUME
 		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/volume.svg',
+			"toolbar_volume_icon",
+			Potree.resourcePath + '/icons/simple/volume.svg',
 			'[title]tt.volume_measurement',
 			() => {
 				let volume = this.volumeTool.startInsertion();
@@ -188,7 +195,8 @@ export class Sidebar{
 
 		// SPHERE VOLUME
 		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/sphere_distances.svg',
+			"toolbar_sphere_icon",
+			Potree.resourcePath + '/icons/simple/sphere.svg',
 			'[title]tt.volume_measurement',
 			() => {
 				let volume = this.volumeTool.startInsertion({type: SphereVolume});
@@ -200,29 +208,18 @@ export class Sidebar{
 			}
 		));
 
-		// PROFILE
-		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/profile.svg',
-			'[title]tt.height_profile',
-			() => {
-				$('#menu_measurements').next().slideDown(); ;
-				let profile = this.profileTool.startInsertion();
-
-				let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
-				let jsonNode = measurementsRoot.children.find(child => child.data.uuid === profile.uuid);
-				$.jstree.reference(jsonNode.id).deselect_all();
-				$.jstree.reference(jsonNode.id).select_node(jsonNode.id);
-			}
-		));
-
 		// REMOVE ALL
 		elToolbar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/reset_tools.svg',
+			"toolbar_delete_icon",
+			Potree.resourcePath + '/icons/simple/delete.svg',
 			'[title]tt.remove_all_measurement',
 			() => {
 				this.viewer.scene.removeAllMeasurements();
 			}
 		));
+		$("#toolbar_delete_icon").css("border-left", "1px solid gray");
+		$("#toolbar_delete_icon").css("margin-left", "3.5px");
+		$("#toolbar_delete_icon").css("padding-left", "2.5px");
 	}
 
 	initScene(){
@@ -587,7 +584,7 @@ export class Sidebar{
 
 	}
 
-	initClippingTool(){
+	initSelectionTool(){
 
 
 		this.viewer.addEventListener("cliptask_changed", (event) => {
@@ -624,11 +621,12 @@ export class Sidebar{
 			elClipMethod.find(`input[value=${currentClipMethod}]`).trigger("click");
 		}
 
-		let clippingToolBar = $("#clipping_tools");
+		let selectionToolBar = $("#selection_tools");
 
 		// CLIP VOLUME
-		clippingToolBar.append(this.createToolIcon(
-			Potree.resourcePath + '/icons/clip_volume.svg',
+		selectionToolBar.append(this.createToolIcon(
+			"selection_volume_icon",
+			Potree.resourcePath + '/icons/simple/volume.svg',
 			'[title]tt.clip_volume',
 			() => {
 				let item = this.volumeTool.startInsertion({clip: true});
@@ -641,11 +639,12 @@ export class Sidebar{
 		));
 
 		// CLIP POLYGON
-		clippingToolBar.append(this.createToolIcon(
-			Potree.resourcePath + "/icons/clip-polygon.svg",
+		selectionToolBar.append(this.createToolIcon(
+			"selection_polygon_icon",
+			Potree.resourcePath + "/icons/simple/polygon.svg",
 			"[title]tt.clip_polygon",
 			() => {
-				let item = this.viewer.clippingTool.startInsertion({type: "polygon"});
+				let item = this.viewer.selectionTool.startInsertion({type: "polygon"});
 
 				let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 				let jsonNode = measurementsRoot.children.find(child => child.data.uuid === item.uuid);
@@ -654,64 +653,102 @@ export class Sidebar{
 			}
 		));
 
-		{// SCREEN BOX SELECT
-			let boxSelectTool = new ScreenBoxSelectTool(this.viewer);
-
-			clippingToolBar.append(this.createToolIcon(
-				Potree.resourcePath + "/icons/clip-screen.svg",
-				"[title]tt.screen_clip_box",
+		{// SPHERE CLIPPING VOLUME
+			selectionToolBar.append(this.createToolIcon(
+				"selection_sphere_icon",
+				Potree.resourcePath + '/icons/simple/sphere.svg',
+				'[title]tt.clip_sphere',
 				() => {
-					if(!(this.viewer.scene.getActiveCamera() instanceof THREE.OrthographicCamera)){
-						this.viewer.postMessage(`Switch to Orthographic Camera Mode before using the Screen-Box-Select tool.`,
-							{duration: 2000});
-						return;
-					}
-
-					let item = boxSelectTool.startInsertion();
+					let volume = this.volumeTool.startInsertion({type: SphereVolume});
 
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
-					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === item.uuid);
+					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === volume.uuid);
 					$.jstree.reference(jsonNode.id).deselect_all();
 					$.jstree.reference(jsonNode.id).select_node(jsonNode.id);
 				}
 			));
 		}
 
-		{ // REMOVE CLIPPING TOOLS
-			clippingToolBar.append(this.createToolIcon(
-				Potree.resourcePath + "/icons/remove.svg",
-				"[title]tt.remove_all_measurement",
+		{ // HEIGHT PROFILE
+			selectionToolBar.append(this.createToolIcon(
+				"selection_height_icon",
+				Potree.resourcePath + '/icons/simple/height.svg',
+				'[title]tt.height_profile',
 				() => {
+					$('#menu_measurements').next().slideDown(); ;
+					let profile = this.profileTool.startInsertion();
 
-					this.viewer.scene.removeAllClipVolumes();
+					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
+					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === profile.uuid);
+					$.jstree.reference(jsonNode.id).deselect_all();
+					$.jstree.reference(jsonNode.id).select_node(jsonNode.id);
 				}
 			));
 		}
 
-		{ // LOAD ALL SAVED CLIPS
-			$("#btnShowClippings").click((e) => {
-				this.viewer.scene.getAllVolumes();
-			});
+		{ // SAVE ALL CLIPPINGS
+			selectionToolBar.append(this.createToolIcon(
+				"selection_save_icon",
+				Potree.resourcePath + '/icons/simple/save.svg',
+				'[title]tt.clip_save',
+				() => {
+					this.viewer.scene.saveAllVolumes();
+				}
+			));
+			$("#selection_save_icon").css("border-left", "1px solid gray");
+			$("#selection_save_icon").css("margin-left", "3.5px");
+			$("#selection_save_icon").css("padding-left", "3.5px");			
 		}
 
-		{ // SAVE ALL CLIPS
-			$("#btnSaveClippings").click((e) => {
-				this.viewer.scene.saveAllVolumes();
-			});
+		{ // DELETE ALL CLIPPINGS
+			selectionToolBar.append(this.createToolIcon(
+				"selection_delete_icon",
+				Potree.resourcePath + '/icons/simple/delete.svg',
+				'[title]tt.clip_delete',
+				() => {
+					this.viewer.scene.deleteAllVolumes();
+				}
+			));
 		}
 
-		{ // DELETE ALL CLIPS PERMANENTLY
-			$("#btnDeleteClippings").click((e) => {
-				this.viewer.scene.deleteAllVolumes();
-			});
-		}
+		{ // SHOW / HIDE ALL CLIPPINGS
+			let showIcon = this.createToolIcon(
+				"selection_show_icon",
+				Potree.resourcePath + '/icons/simple/show.svg',
+				'[title]tt.visibility_show',
+				() => {
+					toggleClippingVisibility();
+					this.viewer.scene.getAllVolumes();
 
-		{ // SHOW / HIDE ALL CLIPS
-			$("#btnHideClippings").click((e) => {
-				this.viewer.scene.removeAllVolumes();
-			});
-		}
+				}
+			);
+			let hideIcon = this.createToolIcon(
+				"selection_hide_icon",
+				Potree.resourcePath + '/icons/simple/hide.svg',
+				'[title]tt.visibility_hide',
+				() => {
+					toggleClippingVisibility();
+					this.viewer.scene.removeAllVolumes();
+				}
+			);
 
+			selectionToolBar.append(showIcon);
+
+			let visibility = {'selection_show_icon': hideIcon, 'selection_hide_icon': showIcon};
+
+			let toggleClippingVisibility = function(){
+				let children = selectionToolBar.children();
+				for (var i = 0; i < children.length; i++) {
+					let id = children[i].id;
+					if(id in visibility){
+						let value = visibility[id];
+						let child = children[i];
+						child.remove();
+						selectionToolBar.append(value);
+					}
+				}
+			}
+		}
 	}
 
 	initFilters(){
@@ -982,12 +1019,14 @@ export class Sidebar{
 		let lblMoveSpeed = $('#lblMoveSpeed');
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_earth_controls_icon",
 			Potree.resourcePath + '/icons/earth_controls_1.png',
 			'[title]tt.earth_control',
 			() => { this.viewer.setNavigationMode(EarthControls); }
 		));
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_fps_controls_icon",
 			Potree.resourcePath + '/icons/fps_controls.svg',
 			'[title]tt.flight_control',
 			() => {
@@ -997,6 +1036,7 @@ export class Sidebar{
 		));
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_helicopter_controls_icon",
 			Potree.resourcePath + '/icons/helicopter_controls.svg',
 			'[title]tt.heli_control',
 			() => {
@@ -1006,12 +1046,14 @@ export class Sidebar{
 		));
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_orbit_controls_icon",
 			Potree.resourcePath + '/icons/orbit_controls.svg',
 			'[title]tt.orbit_control',
 			() => { this.viewer.setNavigationMode(OrbitControls); }
 		));
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_focus_controls_icon",
 			Potree.resourcePath + '/icons/focus.svg',
 			'[title]tt.focus_control',
 			() => { this.viewer.fitToScreen(); }
@@ -1020,6 +1062,7 @@ export class Sidebar{
 
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_cube_controls_icon",
 			Potree.resourcePath + "/icons/navigation_cube.svg",
 			"[title]tt.navigation_cube_control",
 			() => {this.viewer.toggleNavigationCube()}
@@ -1029,36 +1072,42 @@ export class Sidebar{
 
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_left_controls_icon",
 			Potree.resourcePath + "/icons/left.svg",
 			"[title]tt.left_view_control",
 			() => {this.viewer.setLeftView()}
 		));
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_right_controls_icon",
 			Potree.resourcePath + "/icons/right.svg",
 			"[title]tt.right_view_control",
 			() => {this.viewer.setRightView()}
 		));
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_front_controls_icon",
 			Potree.resourcePath + "/icons/front.svg",
 			"[title]tt.front_view_control",
 			() => {this.viewer.setFrontView()}
 		));
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_back_controls_icon",
 			Potree.resourcePath + "/icons/back.svg",
 			"[title]tt.back_view_control",
 			() => {this.viewer.setBackView()}
 		));
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_top_controls_icon",
 			Potree.resourcePath + "/icons/top.svg",
 			"[title]tt.top_view_control",
 			() => {this.viewer.setTopView()}
 		));
 
 		elNavigation.append(this.createToolIcon(
+			"navigation_bottom_controls_icon",
 			Potree.resourcePath + "/icons/bottom.svg",
 			"[title]tt.bottom_view_control",
 			() => {this.viewer.setBottomView()}

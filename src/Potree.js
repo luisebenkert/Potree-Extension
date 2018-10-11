@@ -203,18 +203,18 @@ export function loadPointCloud(path, name, callback){
 			}
 
 			elButtonContainer.find("label").each( (index, value) => {
-				$(value).css("margin", "0px");
+				$(value).css("margin", "0px");				
 				$(value).css("border-radius", "0px");
 				$(value).css("border", "1px solid black");
 				$(value).css("border-left", "none");
 			});
 			elButtonContainer.find("label:first").each( (index, value) => {
 				$(value).css("border-radius", "4px 0px 0px 4px");
+				$(value).css("border-left", "1px solid black");
 
 			});
 			elButtonContainer.find("label:last").each( (index, value) => {
 				$(value).css("border-radius", "0px 4px 4px 0px");
-				$(value).css("border-left", "none");
 			});
 
 			elGroup.empty();
