@@ -64,7 +64,9 @@ export class Sidebar{
 
 	initFileLoader(){
 		$("#btnPointCloudUpload").click((e) => {
-			window.location.href = "./index.html";
+			if(confirm('Are you sure you want to leave this page?')) {
+				window.location.href = "./index.html";
+			}
 		});
 	}
 
@@ -217,9 +219,7 @@ export class Sidebar{
 				this.viewer.scene.removeAllMeasurements();
 			}
 		));
-		$("#toolbar_delete_icon").css("border-left", "1px solid gray");
-		$("#toolbar_delete_icon").css("margin-left", "3.5px");
-		$("#toolbar_delete_icon").css("padding-left", "2.5px");
+		this.addSeperator($("#toolbar_delete_icon"));
 	}
 
 	initScene(){
@@ -584,6 +584,12 @@ export class Sidebar{
 
 	}
 
+	addSeperator(element) {
+		element.css("border-left", "2px solid gray");
+		element.css("margin-left", "3.5px");
+		element.css("padding-left", "3.5px");
+	}
+
 	initSelectionTool(){
 
 
@@ -695,9 +701,7 @@ export class Sidebar{
 					this.viewer.scene.saveAllVolumes();
 				}
 			));
-			$("#selection_save_icon").css("border-left", "1px solid gray");
-			$("#selection_save_icon").css("margin-left", "3.5px");
-			$("#selection_save_icon").css("padding-left", "3.5px");			
+			this.addSeperator($("#selection_save_icon"));
 		}
 
 		{ // DELETE ALL CLIPPINGS

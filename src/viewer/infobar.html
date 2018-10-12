@@ -2,16 +2,16 @@
 <div id="infobar_root" class="perfect_scrollbar navmenu navmenu-default navmenu-fixed-left unselectable infobar">
 	<div id="potree_menu" class="accordion">
 
-		<div id="volumeInfo" class="infobar_panel">		
+		<div id="volumeInfo" class="infobar_panel">
 			<div class="divider"><span>General</span></div>
 			<div id="vlGeneralInfo" class="dividerPanel">
 				<div class="flexBox">
 					<div class="infoIdentifier shortFlexBox">Type</div>
-					<input readonly disabled="true" id="vlGeneralType" class="infoField"></input><br /><br />
+					<input readonly disabled="true" id="vlGeneralType" class="infoField disabledInfoField"></input><br /><br />
 				</div>
 				<div class="flexBox">
 					<div class="infoIdentifier shortFlexBox">ID</div>
-					<input readonly disabled="true" id="vlGeneralID" class="infoField"></input><br /><br />
+					<input readonly disabled="true" id="vlGeneralID" class="infoField disabledInfoField"></input><br /><br />
 				</div>
 				<div class="buttonBar">
 					<button id="btnSaveVolumeBox" class="buttonBarChild">Save Volume</button>
@@ -28,7 +28,7 @@
 			</div>
 			<div class="divider"><span>Material</span></div>
 			<div id="vlMaterial" class="dividerPanel">
-				<select id="vlMaterialSelect">
+				<select id="vlMaterialSelect" class="selectionBox">
 					<option selected value="none">None</option>
 					<option value="concrete">Concrete</option>
 					<option value="glass">Glass</option>

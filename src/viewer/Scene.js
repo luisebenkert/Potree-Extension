@@ -275,7 +275,7 @@ export class Scene extends EventDispatcher{
 		}
 	}
 
-	removeAllMeasurements () {	
+	removeAllMeasurements () {
 		while (this.measurements.length > 0) {
 			this.removeMeasurement(this.measurements[0]);
 		}
