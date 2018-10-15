@@ -62,24 +62,27 @@ If needed, the user can change the database properties in ```/potree/database/co
 
 It is necessary to define the server, username, password (if applicable) and database name.
 
-```some code```
+```con = mysqli_connect('localhost','root','','potree');```
 
 The database consists of three tables:
 * box
 * materials
 * points
 
-** 1. Box Table: **
+**1. Box Table:**
+
 The box table is used to store all selections.
 
-![](./images/database_box_table.png)
+![Box Table](./images/database_box_table.png)
 
-** 2. Materials Table: **
+**2. Materials Table:**
+
 The material table allows the user to reference materials in the box table with an ID; and specifies the properties of the material.
 
-![](./images/database_material_table.png)
+![Material Table](./images/database_material_table.png)
 
-** 3. Points Table: **
+**3. Points Table:**
+
 The points table saves individual points with their position and additional properties.
 
-![](./images/database_point_table.png)
+![Point Table](./images/database_point_table.png)
