@@ -17,12 +17,12 @@ npm install -g rollup
 #### Run the program
 
 1. Open Xampp and run the Apache Server and MySQL
-![XAMPP](./images/xampp.png)
+![XAMPP](./images/xampp.PNG)
 1. Go to http://localhost/potree/examples/index.html
-![Index Page](./images/index_page.png)
+![Index Page](./images/index_page.PNG)
 1. Choose to upload your own point cloud or use the default one
 1. The Set Up was successful if you see this page:
-![Main Page](./images/main_page.png)
+![Main Page](./images/main_page.PNG)
 
 #### Upload Your Own Point Cloud
 
@@ -38,7 +38,7 @@ The annotation tool allows the user to use different volume measurements to segr
 
 There are currently two working volume measurements available: **Box Volumes** and **Sphere Volumes**. In the future, Height Profile and Polygonal Volume may be added.
 
-![Toolbar](./images/selection_toolbar.png)
+![Toolbar](./images/selection_toolbar.PNG)
 
 Furthermore the toolbar offers the user the possibilities to save all current selections to the database; delete all current selections both from Potree as well as the database; and the visibility tool, that can hide or show all saved selections.
 
@@ -47,7 +47,7 @@ Furthermore the toolbar offers the user the possibilities to save all current se
 The infobar opens up if the users adds a new selection or clicks on a selection volume from the scene.
 
 It gives more detailed information about the current box, such as type, id, position, dimension and rotation:
- ![Infobar](./images/infobar.png)
+ ![Infobar](./images/infobar.PNG)
 
 Moreover, it gives the user the chance to define properties for this selection, such as the material. These properties are saved in the database once the selection was saved; either by clicking *Save Volume* in the infobar or *Save All Selections* in the toolbar.
 
@@ -73,16 +73,16 @@ The database consists of three tables:
 
 The box table is used to store all selections.
 
-![Box Table](./images/database_box_table.png)
+![Box Table](./images/database_box_table.PNG)
 
 **2. Materials Table:**
 
 The material table allows the user to reference materials in the box table with an ID; and specifies the properties of the material.
 
-![Material Table](./images/database_material_table.png)
+![Material Table](./images/database_material_table.PNG)
 
 **3. Points Table:**
 
 The points table saves individual points with their position and additional properties.
 
-![Point Table](./images/database_point_table.png)
+![Point Table](./images/database_point_table.PNG)
