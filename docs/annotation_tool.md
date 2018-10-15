@@ -61,7 +61,7 @@ In order to save the selections and their properties, the potree extension uses 
 If needed, the user can change the database properties in ```\potree\database\connection.php```. It is necessary to define the server, username, password (if applicable) and database name:
 
 ``` $con = mysqli_connect('localhost','root','','potree'); ```
-````
+``````
 
 The database consists of three tables:
 * box
