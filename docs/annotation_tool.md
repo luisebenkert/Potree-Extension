@@ -18,6 +18,7 @@ npm install -g rollup
 
 1. Open Xampp and run the Apache Server and MySQL
 ![XAMPP](./images/xampp.PNG)
+1. [Create the MySQL Database](#Database)
 1. Go to http://localhost/potree/examples/index.html
 ![Index Page](./images/index_page.png)
 1. Choose to upload your own point cloud or use the default one
@@ -56,7 +57,14 @@ Lastly, the infobar provides the user with the ability to retrieve all point clo
 
 ## Database
 
-In order to save the selections and their properties, the potree extension uses a MySql Database, also hosted on the local machine: ```http://localhost/phpmyadmin/```
+In order to save the selections and their properties, the potree extension uses a MySQL Database, also hosted on the local machine: ```http://localhost/phpmyadmin/```
+
+#### Set up
+
+1. Run MySQl on Xampp
+1. Navigate to http://localhost/phpmyadmin
+1. Create a new database
+1. Import the file *potree/database/database.sql*
 
 If needed, the user can change the database properties in ```/potree/database/connection.php ```
 
