@@ -2,6 +2,7 @@
 # README
 
 * [Getting Started](./docs/getting_started.md)
+* [Potree Annotation Tool Extension](./docs/annotation_tool.md)
 
 ## About
 
