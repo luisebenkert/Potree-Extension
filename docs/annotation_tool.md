@@ -19,10 +19,10 @@ npm install -g rollup
 1. Open Xampp and run the Apache Server and MySQL
 ![XAMPP](./images/xampp.PNG)
 1. Go to http://localhost/potree/examples/index.html
-![Index Page](./images/index_page.PNG)
+![Index Page](./images/index_page.png)
 1. Choose to upload your own point cloud or use the default one
 1. The Set Up was successful if you see this page:
-![Main Page](./images/main_page.PNG)
+![Main Page](./images/main_page.png)
 
 #### Upload Your Own Point Cloud
 
