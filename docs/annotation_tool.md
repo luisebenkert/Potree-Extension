@@ -18,7 +18,7 @@ npm install -g rollup
 
 1. Open Xampp and run the Apache Server and MySQL
 ![XAMPP](./images/xampp.PNG)
-1. [Create the MySQL Database](#Database)
+1. Create the MySQL Database (refer to section *Database*)
 1. Go to http://localhost/potree/examples/index.html
 ![Index Page](./images/index_page.png)
 1. Choose to upload your own point cloud or use the default one
