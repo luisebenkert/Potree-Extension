@@ -5,7 +5,7 @@
 #### Install Prerequisites
 1. Install node.js & npm
 1. Install [XAMPP](https://www.apachefriends.org/index.html) & set it up
-1. Clone repository or download .zip-File to *\xampp\htdocs*
+1. Clone repository or download .zip-File to */xampp/htdocs*
 1. Navigate to the *Potree* directory
 1. Run the following commands to install gulp
 ```
@@ -28,7 +28,7 @@ npm install -g rollup
 
 On the Start Page of Potree you may choose to upload your own point cloud.
 
-To do that, make sure to copy your point cloud folder (in .potree format) to ```\potree\pointclouds\```
+To do that, make sure to copy your point cloud folder (in .potree format) to ```/potree/pointclouds/```
 
 ## How to Use the Annotation Tool
 
@@ -58,27 +58,28 @@ Lastly, the infobar provides the user with the ability to retrieve all point clo
 
 In order to save the selections and their properties, the potree extension uses a MySql Database, also hosted on the local machine: ```http://localhost/phpmyadmin/```
 
-If needed, the user can change the database properties in ```\potree\database\connection.php```. It is necessary to define the server, username, password (if applicable) and database name:
+If needed, the user can change the database properties in ```/potree/database/connection.php ```
 
-``` $con = mysqli_connect('localhost','root','','potree'); ```
-``````
+It is necessary to define the server, username, password (if applicable) and database name.
+
+```some code```
 
 The database consists of three tables:
 * box
 * materials
 * points
 
-**1. Box Table: **
+** 1. Box Table: **
 The box table is used to store all selections.
 
 ![](./images/database_box_table.png)
 
-**2. Materials Table: **
+** 2. Materials Table: **
 The material table allows the user to reference materials in the box table with an ID; and specifies the properties of the material.
 
 ![](./images/database_material_table.png)
 
-**3. Points Table: **
+** 3. Points Table: **
 The points table saves individual points with their position and additional properties.
 
 ![](./images/database_point_table.png)
