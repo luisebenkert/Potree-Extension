@@ -3,7 +3,7 @@
 ## Set Up
 
 #### Install Prerequisites
-1. Install node.js & npm
+1. Install [node.js](https://nodejs.org/en/) & npm
 1. Install [XAMPP](https://www.apachefriends.org/index.html) & set it up
 1. Clone repository or download .zip-File to */xampp/htdocs*
 1. Navigate to the *Potree* directory
