@@ -2,6 +2,7 @@
 
 ## Set Up
 
+#### Install Prerequisites
 1. Install node.js & npm
 1. Install [XAMPP](https://www.apachefriends.org/index.html) & set it up
 1. Clone repository or download .zip-File to *\xampp\htdocs*
@@ -12,13 +13,16 @@ npm install --save
 npm install -g gulp
 npm install -g rollup
 ```
+
+#### Run the program
+
 1. Open Xampp and run the Apache Server and MySQL
 ![XAMPP](./images/xampp.png)
 1. Go to http://localhost/potree/examples/index.html
-![](./images/index_page.png)
+![Index Page](./images/index_page.png)
 1. Choose to upload your own point cloud or use the default one
 1. The Set Up was successful if you see this page:
-![](./images/main_page.png)
+![Main Page](./images/main_page.png)
 
 #### Upload Your Own Point Cloud
 
@@ -34,7 +38,7 @@ The annotation tool allows the user to use different volume measurements to segr
 
 There are currently two working volume measurements available: **Box Volumes** and **Sphere Volumes**. In the future, Height Profile and Polygonal Volume may be added.
 
-![](./images/selection_toolbar.png)
+![Toolbar](./images/selection_toolbar.png)
 
 Furthermore the toolbar offers the user the possibilities to save all current selections to the database; delete all current selections both from Potree as well as the database; and the visibility tool, that can hide or show all saved selections.
 
@@ -43,7 +47,7 @@ Furthermore the toolbar offers the user the possibilities to save all current se
 The infobar opens up if the users adds a new selection or clicks on a selection volume from the scene.
 
 It gives more detailed information about the current box, such as type, id, position, dimension and rotation:
- ![](./images/infobar.png)
+ ![Infobar](./images/infobar.png)
 
 Moreover, it gives the user the chance to define properties for this selection, such as the material. These properties are saved in the database once the selection was saved; either by clicking *Save Volume* in the infobar or *Save All Selections* in the toolbar.
 
@@ -57,6 +61,7 @@ In order to save the selections and their properties, the potree extension uses 
 If needed, the user can change the database properties in ```\potree\database\connection.php```. It is necessary to define the server, username, password (if applicable) and database name:
 
 ``` $con = mysqli_connect('localhost','root','','potree'); ```
+````
 
 The database consists of three tables:
 * box
