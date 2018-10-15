@@ -31,6 +31,7 @@ export class Scene extends EventDispatcher{
 		this.measurements = [];
 		this.profiles = [];
 		this.volumes = [];
+		this.volumesBuffer = [];
 		this.polygonClipVolumes = [];
 
 		this.fpControls = null;
@@ -137,6 +138,8 @@ export class Scene extends EventDispatcher{
 	}
 
 	displayVolumes (volumes) {
+		console.log(volumes);
+		console.log(this.volumesBuffer);
 		for (var i = 0; i < volumes.length; i++) {
 			if(!this.volumeExists(volumes[i])) {
 				this.dispatchEvent({
@@ -145,6 +148,26 @@ export class Scene extends EventDispatcher{
 				});
 			}
 		}
+		if(this.volumesBuffer.length > 0) {
+			for (var i = 0; i < this.volumesBuffer.length; i++) {
+				if(!this.volumeExists(this.volumesBuffer[i])) {
+					this.dispatchEvent({
+						type: 'display_saved_volume',
+						volume: this.volumesBuffer[i]
+					});
+				}
+			}
+			this.volumesBuffer = [];
+		}
+	}
+
+	hideAllVolumes() {
+		this.volumesBuffer = [];
+		this.volumesBuffer = this.volumes.slice();
+		console.log('buffer:');
+		console.log(this.volumesBuffer);
+		console.log('end');
+		this.removeAllVolumes();
 	}
 
 	saveVolumeBox (volumeBox) {

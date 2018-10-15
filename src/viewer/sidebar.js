@@ -732,7 +732,7 @@ export class Sidebar{
 				'[title]tt.visibility_hide',
 				() => {
 					toggleClippingVisibility();
-					this.viewer.scene.removeAllVolumes();
+					this.viewer.scene.hideAllVolumes();
 				}
 			);
 
